@@ -26,7 +26,7 @@ public class Password {
     @Transient
     private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[가-힣A-Za-z\\d$@$!%*#?&]{8,30}$";
 
-    @Column(name = "MEMBER_PASSWORD")
+    @Column(name = "member_password")
     private String password;
 
     public Password(String password) {

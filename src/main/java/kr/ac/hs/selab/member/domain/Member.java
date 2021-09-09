@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends DateEntity {
     @Id
-    @Column(name = "MEMBER_ID")
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
@@ -35,7 +35,7 @@ public class Member extends DateEntity {
     private PhoneNumber phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "MEMBER_GENDER")
+    @Column(name = "member_gender")
     private Gender gender;
 
     @Enumerated

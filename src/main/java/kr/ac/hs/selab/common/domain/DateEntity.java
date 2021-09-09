@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class DateEntity {
     @CreatedDate
-    @Column(name = "CREATE_DATE")
+    @Column(name = "create_date")
     protected LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(name = "MODIFIED_DATE")
+    @Column(name = "modified_date")
     protected LocalDateTime modifiedDate;
 }

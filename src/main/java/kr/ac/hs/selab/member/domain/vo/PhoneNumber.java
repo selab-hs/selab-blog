@@ -19,7 +19,7 @@ public class PhoneNumber {
     @Transient
     private static final String PHONE_NUMBER_REGEX = "^010[0-9]{8}$";
 
-    @Column(name = "MEMBER_PHONE_NUMBER")
+    @Column(name = "member_phone_number")
     private String phoneNumber;
 
     public PhoneNumber(String phoneNumber) {

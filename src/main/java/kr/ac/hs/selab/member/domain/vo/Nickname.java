@@ -19,7 +19,7 @@ public class Nickname {
     @Transient
     private static final String NICKNAME_REGEX = "^[a-zA-Z가-힣0-9]{2,20}$";
 
-    @Column(name = "MEMBER_NICKNAME")
+    @Column(name = "member_nickname")
     private String nickname;
 
     public Nickname(String nickname) {

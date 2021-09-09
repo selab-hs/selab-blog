@@ -20,7 +20,7 @@ public class Name {
     @Transient
     private static final String NAME_REGEX = "^[가-힣]{2,10}$";
 
-    @Column(name = "MEMBER_NAME")
+    @Column(name = "member_name")
     private String name;
 
     public Name(String name) {

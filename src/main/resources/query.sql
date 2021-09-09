@@ -1,3 +1,3 @@
-CREATE DATABASE selab CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database selab character set utf8 default collate utf8_general_ci;
 
-SELECT * FROM MEMBER;
+select * from member;

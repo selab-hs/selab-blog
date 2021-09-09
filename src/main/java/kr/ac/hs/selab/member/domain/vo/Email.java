@@ -21,7 +21,7 @@ public class Email {
     @Transient
     private static final String EMAIL_REGEX = "^[_a-zA-Z0-9-\\+]+(\\.[_a-zA-Z0-9-]+)*@" + "[a-zA-Z0-9-]+(\\.[a-zA-Z0-9]+)*(\\.[a-zA-Z]{2,3})$";
 
-    @Column(name = "MEMBER_EMAIL", nullable = false)
+    @Column(name = "member_email", nullable = false)
     private String email;
 
 

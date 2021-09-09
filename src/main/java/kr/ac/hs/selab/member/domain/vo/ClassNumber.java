@@ -19,7 +19,7 @@ public class ClassNumber {
     @Transient
     private static final String CLASS_NUMBER_REGEX = "^[0-9]{4}58[0-9]{3}$";
 
-    @Column(name = "MEMBER_CLASS_NUMBER")
+    @Column(name = "member_class_number")
     private String classNumber;
 
     public ClassNumber(String classNumber) {
