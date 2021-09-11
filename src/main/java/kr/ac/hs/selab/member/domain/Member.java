@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.member.domain;
 
-import kr.ac.hs.selab.common.domain.DateEntity;
+import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.member.domain.vo.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends DateEntity {
+public class Member extends Date {
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
 
     @Embedded
     private Email email;
@@ -39,6 +39,6 @@ public class Member extends DateEntity {
     private Gender gender;
 
     @Enumerated
-    private ClassNumber classNumber;
+    private StudentId studentId;
 
 }

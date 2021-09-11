@@ -14,15 +14,15 @@ import java.util.regex.Pattern;
 @Embeddable
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ClassNumber {
+public class StudentId {
 
     @Transient
     private static final String CLASS_NUMBER_REGEX = "^[0-9]{4}58[0-9]{3}$";
 
-    @Column(name = "member_class_number")
+    @Column(name = "member_student_id")
     private String classNumber;
 
-    public ClassNumber(String classNumber) {
+    public StudentId(String classNumber) {
         validate(classNumber);
         this.classNumber = classNumber;
     }
