@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.member.domain;
 
+import kr.ac.hs.selab.auth.dto.AuthPrincipal;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.member.domain.vo.*;
 import lombok.AccessLevel;
@@ -38,7 +39,31 @@ public class Member extends Date {
     @Column(name = "member_gender")
     private Gender gender;
 
+    @Embedded
+    private Birth birth;
+
     @Enumerated
     private StudentId studentId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_role", nullable = false)
+    private Role role;
+
+    @Column(name = "member_term_service", nullable = false)
+    private boolean termService;
+
+    @Column(name = "member_term_privacy", nullable = false)
+    private boolean termPrivacy;
+
+    @Column(name = "member_term_location", nullable = false)
+    private boolean termLocation;
+
+    public AuthPrincipal toAuthPrincipal() {
+        return AuthPrincipal.builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .role(role)
+                .build();
+    }
 }

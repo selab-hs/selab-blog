@@ -5,6 +5,7 @@ import kr.ac.hs.selab.exception.InvalidInputException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,9 +13,9 @@ import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
 
-@Embeddable
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 public class Password {
     /**
      * 최소 8자 ~ 최대 30자
@@ -34,6 +35,11 @@ public class Password {
         this.password = password;
     }
 
+    private Password(PasswordEncoder passwordEncoder, String password) {
+        validate(password);
+        this.password = passwordEncoder.encode(password);
+    }
+
     public void validate(String password) {
         if (!Pattern.matches(PASSWORD_REGEX, password)) {
             throw new InvalidInputException(ErrorMessage.INVALID_PASSWORD);
@@ -42,5 +48,9 @@ public class Password {
 
     public String getPassword() {
         return password;
+    }
+
+    public Password encode(PasswordEncoder passwordEncoder) {
+        return new Password(passwordEncoder, password);
     }
 }
