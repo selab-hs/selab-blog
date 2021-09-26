@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-@Builder
 @RequiredArgsConstructor
+@Builder
 public class AuthPrincipal implements UserDetails {
     private final Long id;
     private final Email email;

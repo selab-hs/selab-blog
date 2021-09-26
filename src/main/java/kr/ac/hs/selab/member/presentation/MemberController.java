@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.member.presentation;
 
 import kr.ac.hs.selab.member.application.MemberService;
-import kr.ac.hs.selab.member.dro.MemberSignDto;
+import kr.ac.hs.selab.member.dto.MemberSignDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

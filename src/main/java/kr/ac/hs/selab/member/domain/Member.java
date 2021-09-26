@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+@Entity
 public class Member extends Date {
     @Id
     @Column(name = "member_id")
@@ -34,9 +34,6 @@ public class Member extends Date {
     @Embedded
     private Nickname nickname;
 
-    @Embedded
-    private PhoneNumber phoneNumber;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "member_gender")
     private Gender gender;
@@ -44,8 +41,8 @@ public class Member extends Date {
     @Embedded
     private Birth birth;
 
-    @Enumerated
-    private StudentId studentId;
+    @Embedded
+    private PhoneNumber phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
@@ -95,6 +92,4 @@ public class Member extends Date {
         toMember.follows.removeToFollows(follow);
         return false;
     }
-
-
 }

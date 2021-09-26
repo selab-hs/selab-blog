@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum Gender {
+    EMPTY("선택안함"),
     MAN("남자"),
-    WOMAN("여자"),
-    EMPTY("선택안함");
+    WOMAN("여자");
 
     private final String gender;
 

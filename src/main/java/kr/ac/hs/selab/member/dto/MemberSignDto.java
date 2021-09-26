@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.member.dro;
+package kr.ac.hs.selab.member.dto;
 
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.*;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Data
 @NoArgsConstructor
+@Data
 public class MemberSignDto {
     @NonNull
     private Email email;
