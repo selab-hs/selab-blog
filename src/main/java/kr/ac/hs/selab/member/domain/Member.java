@@ -6,17 +6,19 @@ import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
 import kr.ac.hs.selab.follow.domain.Follows;
 import kr.ac.hs.selab.member.domain.vo.*;
+import kr.ac.hs.selab.post.domain.Post;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends Date {
     @Id
     @Column(name = "member_id")
@@ -64,6 +66,9 @@ public class Member extends Date {
     @Embedded
     private Follows follows;
 
+    @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new TreeSet<>();
+
     public AuthPrincipal toAuthPrincipal() {
         return AuthPrincipal.builder()
                 .id(id)
@@ -95,6 +100,10 @@ public class Member extends Date {
         follows.removeFromFollows(follow);
         toMember.follows.removeToFollows(follow);
         return false;
+    }
+
+    protected Member() {
+
     }
 
 

@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Nickname {
 
     @Transient
@@ -35,5 +34,9 @@ public class Nickname {
 
     public String getNickname() {
         return nickname;
+    }
+
+    protected Nickname() {
+
     }
 }

@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Name {
 
     @Transient
@@ -36,5 +35,9 @@ public class Name {
 
     public String getName() {
         return name;
+    }
+
+    protected Name() {
+
     }
 }

@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Email {
     /**
      * wrjs@naver.com
@@ -38,5 +37,9 @@ public class Email {
 
     public String getEmail() {
         return email;
+    }
+
+    protected Email() {
+
     }
 }

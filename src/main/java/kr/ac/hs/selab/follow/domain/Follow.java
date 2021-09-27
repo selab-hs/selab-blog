@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow extends Date {
     @Id
     @Column(name = "follow_id")
@@ -26,6 +25,10 @@ public class Follow extends Date {
     public Follow(Member fromMember, Member toMember) {
         this.fromMember = fromMember;
         this.toMember = toMember;
+    }
+
+    protected Follow() {
+
     }
 
 }

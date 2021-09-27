@@ -12,13 +12,12 @@ import java.util.TreeSet;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follows {
 
-    @OneToMany(mappedBy = "fromMember", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fromMember", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> fromFollows = new TreeSet<>();
 
-    @OneToMany(mappedBy = "toMember", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "toMember", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> toFollows = new TreeSet<>();
 
     public void addFromFollows(Follow follow) {
@@ -36,7 +35,7 @@ public class Follows {
     public void removeToFollows(Follow follow) {
         toFollows.remove(follow);
     }
-    
+
     public boolean existsFromFollows(Follow follow) {
         if (fromFollows.contains(follow)) {
             return true;
@@ -49,5 +48,9 @@ public class Follows {
             return true;
         }
         return false;
+    }
+
+    protected Follows() {
+
     }
 }

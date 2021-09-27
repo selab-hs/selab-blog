@@ -26,12 +26,12 @@ public class AuthPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.password.getPassword();
+        return password.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.email.getEmail();
+        return email.getEmail();
     }
 
     @Override

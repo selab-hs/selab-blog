@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Birth {
     /**
      * yyyymmdd :: 19970908
@@ -37,6 +36,9 @@ public class Birth {
 
     public String getBirth() {
         return birth;
+    }
+
+    protected Birth() {
     }
 }
 

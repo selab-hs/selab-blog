@@ -14,7 +14,8 @@ public enum ErrorMessage {
     DUPLICATION_MEMBER("중복된 계정입니다."),
     INVALID_TITLE("게시판 명은 최소 5자 ~ 최대 10자 입니다."),
     INVALID_CONTENT("게시판 소개글은 최소 5자 ~ 최대 50자 입니다."),
-    NO_PERMISSION_MEMBER("권한이 없는 사용자 입니다.");
+    NO_PERMISSION_MEMBER("권한이 없는 사용자 입니다."),
+    INVALID_SUB_TITLE("제목은 최소 5자 ~ 최대 30자 입니다.");
 
     private final String message;
 

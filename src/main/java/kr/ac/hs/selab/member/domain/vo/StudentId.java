@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StudentId {
 
     @Transient
@@ -35,5 +34,9 @@ public class StudentId {
 
     public String getClassNumber() {
         return classNumber;
+    }
+
+    protected StudentId() {
+
     }
 }

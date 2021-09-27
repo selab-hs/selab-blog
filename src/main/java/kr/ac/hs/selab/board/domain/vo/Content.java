@@ -2,9 +2,7 @@ package kr.ac.hs.selab.board.domain.vo;
 
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.InvalidInputException;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

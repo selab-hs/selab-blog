@@ -13,9 +13,8 @@ import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
 
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
+@EqualsAndHashCode
 public class Password {
     /**
      * 최소 8자 ~ 최대 30자
@@ -52,5 +51,9 @@ public class Password {
 
     public Password encode(PasswordEncoder passwordEncoder) {
         return new Password(passwordEncoder, password);
+    }
+
+    protected Password() {
+
     }
 }

@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 @Embeddable
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PhoneNumber {
     // :: Mobile Phone Identification Number :: 010
     @Transient
@@ -35,5 +34,9 @@ public class PhoneNumber {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    protected PhoneNumber() {
+        
     }
 }

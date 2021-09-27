@@ -15,4 +15,9 @@ public class BoardDto {
 
     public BoardDto() {
     }
+
+    public BoardDto(@NonNull Title title, @NonNull Content content) {
+        this.title = title;
+        this.content = content;
+    }
 }

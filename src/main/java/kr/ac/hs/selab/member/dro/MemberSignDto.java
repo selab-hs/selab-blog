@@ -8,7 +8,6 @@ import lombok.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Data
-@NoArgsConstructor
 public class MemberSignDto {
     @NonNull
     private Email email;
@@ -45,5 +44,9 @@ public class MemberSignDto {
                 .termLocation(termLocation)
                 .role(Role.USER)
                 .build();
+    }
+
+    public MemberSignDto() {
+
     }
 }
