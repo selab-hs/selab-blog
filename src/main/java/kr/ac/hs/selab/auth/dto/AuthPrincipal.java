@@ -3,20 +3,28 @@ package kr.ac.hs.selab.auth.dto;
 import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Role;
+import kr.ac.hs.selab.member.domain.vo.SocialType;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import javax.transaction.NotSupportedException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Builder
-public class AuthPrincipal implements UserDetails {
+@Getter
+public class AuthPrincipal implements UserDetails, OAuth2User {
     private final Long id;
     private final Email email;
     private final Password password;
+    private final SocialType socialType;
     private final Role role;
 
     @Override
@@ -52,5 +60,23 @@ public class AuthPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @SneakyThrows
+    @Deprecated
+    @Override
+    public Map<String, Object> getAttributes() {
+        throw new NotSupportedException();
+    }
+
+    @SneakyThrows
+    @Deprecated
+    @Override
+    public String getName() {
+        throw new NotSupportedException();
+    }
+
+    public boolean isSocial() {
+        return socialType != SocialType.BASIC;
     }
 }

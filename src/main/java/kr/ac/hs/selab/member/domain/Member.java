@@ -1,16 +1,16 @@
 package kr.ac.hs.selab.member.domain;
 
 import kr.ac.hs.selab.auth.dto.AuthPrincipal;
+import kr.ac.hs.selab.auth.dto.SocialAttributes;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
 import kr.ac.hs.selab.follow.domain.Follows;
 import kr.ac.hs.selab.member.domain.vo.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import kr.ac.hs.selab.member.dto.SocialMemberSignDto;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -48,6 +48,12 @@ public class Member extends Date {
     @Column(name = "member_role", nullable = false)
     private Role role;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_social_type", nullable = false)
+    private SocialType socialType;
+
+    private String socialUserKey;
+
     @Column(name = "member_term_service", nullable = false)
     private boolean termService;
 
@@ -66,7 +72,22 @@ public class Member extends Date {
                 .email(email)
                 .password(password)
                 .role(role)
+                .socialType(socialType)
                 .build();
+    }
+
+    public static Member ofSocial(SocialAttributes socialMember) {
+        return Member.builder()
+                .name(socialMember.name())
+                .email(socialMember.email())
+                .socialUserKey(socialMember.userKey())
+                .socialType(socialMember.socialType())
+                .role(Role.USER)
+                .build();
+    }
+
+    public boolean isSocial() {
+        return socialType != SocialType.BASIC;
     }
 
     public boolean follow(Member toMember) {
@@ -91,5 +112,21 @@ public class Member extends Date {
         follows.removeFromFollows(follow);
         toMember.follows.removeToFollows(follow);
         return false;
+    }
+
+    public boolean isNotCompletedSingUp() {
+        return Objects.isNull(nickname) ||
+                Objects.isNull(birth) ||
+                Objects.isNull(phoneNumber);
+    }
+
+    public void updateSocialMemberInfo(SocialMemberSignDto socialMemberSign) {
+        this.gender = socialMemberSign.getGender();
+        this.nickname = socialMemberSign.getNickname();
+        this.phoneNumber = socialMemberSign.getPhoneNumber();
+        this.birth = socialMemberSign.getBirth();
+        this.termLocation = socialMemberSign.isTermLocation();
+        this.termPrivacy = true;
+        this.termService = true;
     }
 }
