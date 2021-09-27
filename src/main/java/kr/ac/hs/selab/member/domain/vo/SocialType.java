@@ -1,6 +1,8 @@
 package kr.ac.hs.selab.member.domain.vo;
 
 import kr.ac.hs.selab.auth.dto.GoogleAttributes;
+import kr.ac.hs.selab.auth.dto.KakaoAttributes;
+import kr.ac.hs.selab.auth.dto.NaverAttributes;
 import kr.ac.hs.selab.auth.dto.SocialAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -11,7 +13,9 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public enum SocialType {
     BASIC("", null),
-    GOOGLE("google", GoogleAttributes::new);
+    GOOGLE("google", GoogleAttributes::new),
+    KAKAO("kakao", KakaoAttributes::new),
+    NAVER("naver", NaverAttributes::new);
 
     private final String name;
     private final Function<OAuth2User, SocialAttributes> attribute;

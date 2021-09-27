@@ -36,7 +36,7 @@ public class MemberController {
     public String signUpSocial(@AuthenticationPrincipal AuthPrincipal authPrincipal) {
         validateSocialSingUp(authPrincipal);
 
-        return "fragments/member/social-sign-up";
+        return "fragments/member/social-sign";
     }
 
     @PostMapping("signup/social")

@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout/head :: head">
+</head>
 <body>
+<div th:replace="fragments/layout/header :: header"></div>
+
 <div class="container">
-    <h3>나는 소셜 회원가입 폼이야</h3>
-    
     <form
             th:role="form"
             th:action="@{/auth/signup/social}"
@@ -65,5 +67,7 @@
         <button type="submit">정보 등록</button>
     </form>
 </div>
+
+<div th:replace="fragments/layout/footer :: footer"></div>
 </body>
 </html>
