@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.member.domain;
 
 import kr.ac.hs.selab.auth.dto.AuthPrincipal;
+import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
 import kr.ac.hs.selab.follow.domain.Follows;
