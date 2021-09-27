@@ -13,7 +13,8 @@ public enum ErrorMessage {
     INVALID_CLASS_NUMBER("학번 형식이 맞지 않습니다."),
     DUPLICATION_MEMBER("중복된 계정입니다."),
     INVALID_TITLE("게시판 명은 최소 5자 ~ 최대 10자 입니다."),
-    INVALID_CONTENT("게시판 소개글은 최소 5자 ~ 최대 50자 입니다.");
+    INVALID_CONTENT("게시판 소개글은 최소 5자 ~ 최대 50자 입니다."),
+    NO_PERMISSION_MEMBER("권한이 없는 사용자 입니다.");
 
     private final String message;
 

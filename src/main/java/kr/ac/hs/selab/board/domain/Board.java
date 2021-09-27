@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends Date {
     @Id
     @Column(name = "board_id")
@@ -33,6 +32,10 @@ public class Board extends Date {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .build();
+    }
+
+    protected Board() {
+
     }
 
 }

@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.member.domain.vo;
 
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
