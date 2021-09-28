@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout/head :: head">
+</head>
+
+<body>
+<div th:replace="fragments/layout/header :: header(${boards})"></div>
+
+<div class="container">
+    <div class="card m-2" th:each="post : ${posts}">
+        <div class="card-body">
+            <div>
+                <h4 class="card-title" th:text="${post.subTitle.getSubTitle()}"></h4>
+                <h6>👁 조회수</h6>
+                <h6>😍 좋아요</h6>
+            </div>
+            <a href="#" class="btn btn-info">상세보기</a>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/layout/footer :: footer"></div>
+
+</body>
+</html>

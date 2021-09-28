@@ -48,4 +48,8 @@ public class Board extends Date {
     public Content getContent() {
         return content;
     }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
 }

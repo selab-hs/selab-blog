@@ -23,7 +23,7 @@ public class Post extends Date {
 
     @Column(name = "post_sub_content")
     private String subContent;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_Id")
     private Member postMember;
@@ -33,5 +33,9 @@ public class Post extends Date {
     private Board postBoard;
 
     protected Post() {
+    }
+
+    public SubTitle getSubTitle() {
+        return subTitle;
     }
 }
