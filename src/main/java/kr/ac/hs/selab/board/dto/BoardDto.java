@@ -20,4 +20,5 @@ public class BoardDto {
         this.title = title;
         this.content = content;
     }
+
 }

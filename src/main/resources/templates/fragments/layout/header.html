@@ -1,5 +1,5 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<div th:fragment="header">
+<div th:fragment="header(boards)">
     <div class="jumbotron text-center" style="margin-bottom:0">
         <h1>SE LAB</h1>
         <p>Software Engineering Lab</p>
@@ -24,6 +24,11 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/board}">Board</a>
                 </li>
+
+                <li class="nav-item" th:each="board: ${boards}">
+                    <a class="nav-link" th:text="${board.title.getTitle()}"></a>
+                </li>
+
             </ul>
         </div>
 

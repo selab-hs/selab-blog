@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("board")
@@ -23,15 +25,19 @@ public class BoardController {
     @GetMapping({"/", ""})
     public String board(Model model) {
         model.addAttribute("createBoardDto", new BoardDto());
+        List<BoardDto> boards = boardService.boards();
+        model.addAttribute("boards", boards);
         return "/fragments/board/create-board";
     }
 
     @PostMapping({"/", ""})
-    public String board(@AuthenticationPrincipal AuthPrincipal principal, BoardDto dto) {
+    public String board(@AuthenticationPrincipal AuthPrincipal principal, BoardDto dto, Model model) {
         if (principal.getRole() != Role.ADMIN) {
             throw new IncorrectPermissionException(ErrorMessage.NO_PERMISSION_MEMBER);
         }
         boardService.createBoard(dto);
+        List<BoardDto> boards = boardService.boards();
+        model.addAttribute("boards", boards);
         return "redirect:/";
     }
 }
