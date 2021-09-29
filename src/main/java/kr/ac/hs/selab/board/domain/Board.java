@@ -4,11 +4,16 @@ import kr.ac.hs.selab.board.domain.vo.Content;
 import kr.ac.hs.selab.board.domain.vo.Title;
 import kr.ac.hs.selab.board.dto.BoardDto;
 import kr.ac.hs.selab.common.domain.Date;
+import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
+import kr.ac.hs.selab.post.dto.PostDto;
+import kr.ac.hs.selab.post.dto.PostMakeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,7 +33,7 @@ public class Board extends Date {
     private Content content;
 
     @OneToMany(mappedBy = "postBoard", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Post> posts = new TreeSet<>();
+    private List<Post> posts = new ArrayList<>();
 
     public static Board of(BoardDto dto) {
         return Board.builder()
@@ -49,7 +54,12 @@ public class Board extends Date {
         return content;
     }
 
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
+    }
+
+    public void post(PostMakeDto dto, Member member) {
+        Post post = new Post(dto.getSubTitle(), dto.getSubContent(), member, this);
+        posts.add(post);
     }
 }

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 @EqualsAndHashCode
 public class Title {
     @Transient
-    private static final String TITLE_REGEX = "^.{5,10}$";
+    private static final String TITLE_REGEX = "^.{3,10}$";
 
     @Column(name = "board_title")
     private String title;

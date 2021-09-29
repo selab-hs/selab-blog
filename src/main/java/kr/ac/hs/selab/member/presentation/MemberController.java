@@ -24,7 +24,7 @@ public class MemberController {
     @GetMapping("sign")
     public String sign(Model model) {
         model.addAttribute("memberSignDto", new MemberSignDto());
-        List<BoardDto> boards = boardService.boards();
+        List<BoardDto> boards = boardService.findBoards();
         model.addAttribute("boards", boards);
         return "/fragments/member/sign";
     }
@@ -37,7 +37,7 @@ public class MemberController {
 
     @GetMapping("login")
     public String login(Model model) {
-        List<BoardDto> boards = boardService.boards();
+        List<BoardDto> boards = boardService.findBoards();
         model.addAttribute("boards", boards);
         return "/fragments/member/login";
     }

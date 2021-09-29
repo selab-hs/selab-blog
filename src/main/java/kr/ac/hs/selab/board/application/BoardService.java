@@ -4,15 +4,19 @@ import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.domain.vo.Title;
 import kr.ac.hs.selab.board.dto.BoardDto;
 import kr.ac.hs.selab.board.infrastructure.BoardRepository;
+import kr.ac.hs.selab.exception.NonExistBoard;
+import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
+import kr.ac.hs.selab.post.dto.PostDto;
+import kr.ac.hs.selab.post.dto.PostMakeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
+
+import static kr.ac.hs.selab.exception.ErrorMessage.IS_NOT_EXIT_BOARD;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +30,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<BoardDto> boards() {
+    public List<BoardDto> findBoards() {
         return boardRepository.findAll()
                 .stream()
                 .map(
@@ -38,9 +42,22 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Board board(Title title) {
-        Board board = boardRepository.findByTitle(title)
-                .orElseThrow(() -> new RuntimeException(""));
-        return board;
+    public List<PostDto> findPosts(Title title) {
+        List<Post> posts = boardRepository.findBoardByTitle(title)
+                .orElseThrow(() -> new NonExistBoard(IS_NOT_EXIT_BOARD)).getPosts();
+        return makePostDto(posts);
     }
+
+    private List<PostDto> makePostDto(List<Post> posts) {
+        return posts.stream()
+                .map(post -> new PostDto(post.getSubTitle()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void createPost(Member member, PostMakeDto dto, Title title) {
+        Board board = boardRepository.findBoardByTitle(title).orElseThrow(() -> new NonExistBoard(IS_NOT_EXIT_BOARD));
+        board.post(dto, member);
+    }
+
 }

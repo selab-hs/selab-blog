@@ -38,4 +38,11 @@ public class Post extends Date {
     public SubTitle getSubTitle() {
         return subTitle;
     }
+
+    public Post(SubTitle subTitle, String subContent, Member postMember, Board postBoard) {
+        this.subTitle = subTitle;
+        this.subContent = subContent;
+        this.postMember = postMember;
+        this.postBoard = postBoard;
+    }
 }

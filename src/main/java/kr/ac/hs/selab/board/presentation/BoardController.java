@@ -25,7 +25,7 @@ public class BoardController {
     @GetMapping({"/", ""})
     public String board(Model model) {
         model.addAttribute("createBoardDto", new BoardDto());
-        List<BoardDto> boards = boardService.boards();
+        List<BoardDto> boards = boardService.findBoards();
         model.addAttribute("boards", boards);
         return "/fragments/board/create-board";
     }
@@ -36,8 +36,10 @@ public class BoardController {
             throw new IncorrectPermissionException(ErrorMessage.NO_PERMISSION_MEMBER);
         }
         boardService.createBoard(dto);
-        List<BoardDto> boards = boardService.boards();
+        List<BoardDto> boards = boardService.findBoards();
         model.addAttribute("boards", boards);
         return "redirect:/";
     }
+
+
 }

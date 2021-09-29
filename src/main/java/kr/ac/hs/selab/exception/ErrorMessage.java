@@ -12,10 +12,11 @@ public enum ErrorMessage {
     INVALID_BIRTH("생년월일은 yyyymmdd 형식에 맞추어 작성해주세요."),
     INVALID_CLASS_NUMBER("학번 형식이 맞지 않습니다."),
     DUPLICATION_MEMBER("중복된 계정입니다."),
-    INVALID_TITLE("게시판 명은 최소 5자 ~ 최대 10자 입니다."),
+    INVALID_TITLE("게시판 명은 최소 3자 ~ 최대 10자 입니다."),
     INVALID_CONTENT("게시판 소개글은 최소 5자 ~ 최대 50자 입니다."),
     NO_PERMISSION_MEMBER("권한이 없는 사용자 입니다."),
-    INVALID_SUB_TITLE("제목은 최소 5자 ~ 최대 30자 입니다.");
+    INVALID_SUB_TITLE("제목은 최소 5자 ~ 최대 30자 입니다."),
+    IS_NOT_EXIT_BOARD("존재하지 않는 게시판 입니다.");
 
     private final String message;
 

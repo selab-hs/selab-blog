@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.member.application;
 
 import kr.ac.hs.selab.member.domain.Member;
+import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.dro.MemberSignDto;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,17 @@ public class MemberService {
         memberRepository.save(request.toMember(passwordEncoder));
     }
 
-    private Member findById(long id) {
+    @Transactional(readOnly = true)
+    public Member findById(long id) {
         return memberRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new RuntimeException("회원 정보가 없습니다.");
+                });
+    }
+
+    @Transactional(readOnly = true)
+    public Member findByEmail(Email email) {
+        return memberRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     throw new RuntimeException("회원 정보가 없습니다.");
                 });

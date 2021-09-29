@@ -16,7 +16,7 @@ public class IndexController {
 
     @GetMapping({"", "/", "index"})
     public String index(Model model) {
-        List<BoardDto> boards = boardService.boards();
+        List<BoardDto> boards = boardService.findBoards();
         model.addAttribute("boards", boards);
         return "fragments/index";
     }
