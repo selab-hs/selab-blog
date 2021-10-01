@@ -20,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Builder
 @Getter
-public class AuthPrincipal implements UserDetails, OAuth2User {
+public class CustomUser implements UserDetails, OAuth2User {
     private final Long id;
     private final Email email;
     private final Password password;

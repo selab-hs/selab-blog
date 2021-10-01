@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.auth.config;
 
-import kr.ac.hs.selab.auth.application.AuthService;
+import kr.ac.hs.selab.auth.application.CustomUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +17,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final AuthService authService;
+    private final CustomUserService customUserService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(authService)
+                .userDetailsService(customUserService)
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .oauth2Login()
                 .userInfoEndpoint()
-                .userService(authService);
+                .userService(customUserService);
     }
 
     @Bean

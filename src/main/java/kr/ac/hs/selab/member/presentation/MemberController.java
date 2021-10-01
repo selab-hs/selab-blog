@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.member.presentation;
 
-import kr.ac.hs.selab.auth.dto.AuthPrincipal;
+import kr.ac.hs.selab.auth.dto.CustomUser;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
@@ -36,9 +36,9 @@ public class MemberController {
     }
 
     @PostMapping("signup/social")
-    public String signUpSocial(@AuthenticationPrincipal AuthPrincipal authPrincipal,
+    public String signUpSocial(@AuthenticationPrincipal CustomUser customUser,
                                @Valid MemberSocialSignUpDto memberSocialSignUpDto) {
-        memberService.updateSocialMember(authPrincipal.getId(), memberSocialSignUpDto);
+        memberService.updateSocialMember(customUser.getId(), memberSocialSignUpDto);
         return "fragments/index";
     }
 
