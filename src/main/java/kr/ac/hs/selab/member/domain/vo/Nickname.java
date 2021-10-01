@@ -11,11 +11,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
-@Embeddable
-@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@Embeddable
 public class Nickname {
-
     @Transient
     private static final String NICKNAME_REGEX = "^[a-zA-Z가-힣0-9]{2,20}$";
 

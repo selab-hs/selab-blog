@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <head th:replace="fragments/layout/head :: head">
 </head>
-
 <body>
 <div th:replace="fragments/layout/header :: header"></div>
 
@@ -16,14 +14,13 @@
     <form
             th:role="form"
             th:action="@{/auth/sign}"
-            th:object="${memberSignDto}"
             th:method="POST"
             class="was-validated">
 
         <div class="form-group">
             <label th:for="email">이메일</label>
             <input type="email"
-                   th:field="*{email}"
+                   th:name="email"
                    placeholder="이메일을 입력하세요"
                    class="form-control"
                    required
@@ -35,7 +32,7 @@
         <div class="form-group">
             <label th:for="password">패스워드</label>
             <input type="password"
-                   th:field="*{password}"
+                   th:name="password"
                    placeholder="패스워드를 입력하세요"
                    class="form-control"
                    required
@@ -47,7 +44,7 @@
         <div class="form-group">
             <label th:for="name">이름</label>
             <input type="text"
-                   th:field="*{name}"
+                   th:name="name"
                    placeholder="이름을 입력하세요"
                    class="form-control"
                    required
@@ -59,7 +56,7 @@
         <div class="form-group">
             <label th:for="nickName">닉네임</label>
             <input type="text"
-                   th:field="*{nickname}"
+                   th:name="nickname"
                    placeholder="닉네임을 입력하세요"
                    class="form-control"
                    required
@@ -71,7 +68,7 @@
         <div class="form-group">
             <label th:for="gender">성별</label>
             <select class="custom-select"
-                    th:field="*{gender}"
+                    th:name="gender"
                     required>
                 <option th:value="EMPTY" selected>선택안함</option>
                 <option th:value="MAN">남자</option>
@@ -84,7 +81,7 @@
         <div class="form-group">
             <label th:for="birth">생일</label>
             <input type="text"
-                   th:field="*{birth}"
+                   th:name="birth"
                    placeholder="생일을 입력하세요"
                    class="form-control"
                    required
@@ -96,7 +93,7 @@
         <div class="form-group">
             <label th:for="phoneNumber">전화번호</label>
             <input type="text"
-                   th:field="*{phoneNumber}"
+                   th:name="phoneNumber"
                    placeholder="전화번호를 입력하세요"
                    class="form-control"
                    required
@@ -108,7 +105,7 @@
         <div class="form-group">
             <label th:for="studentId">학번</label>
             <input type="text"
-                   th:field="*{studentId}"
+                   th:name="studentId"
                    placeholder="학번을 입력하세요"
                    class="form-control"
                    required
@@ -123,7 +120,7 @@
                 <input class="form-check-input"
                        type="checkbox"
                        th:value="true"
-                       th:field="*{termService}"
+                       th:name="termService"
                        required
                 />
                 동의
@@ -138,7 +135,7 @@
                 <input class="form-check-input"
                        type="checkbox"
                        th:value="true"
-                       th:field="*{termPrivacy}"
+                       th:name="termPrivacy"
                        required
                 />
                 동의
@@ -153,7 +150,7 @@
                 <input class="form-check-input"
                        type="checkbox"
                        th:value="true"
-                       th:field="*{termLocation}"
+                       th:name="termLocation"
                        required
                 />
                 동의

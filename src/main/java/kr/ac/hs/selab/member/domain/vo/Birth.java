@@ -11,9 +11,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
-@Embeddable
-@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@Embeddable
 public class Birth {
     /**
      * yyyymmdd :: 19970908

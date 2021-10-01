@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // basic auth http
         http
                 .csrf().disable();
 
@@ -56,7 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling();
 
-        configureOAuth2(http);
+        // oauth2 http
+        http
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(authService);
     }
 
     @Bean
@@ -68,12 +73,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    private void configureOAuth2(HttpSecurity http) throws Exception {
-        http
-                .oauth2Login()
-                .userInfoEndpoint()
-                .userService(authService);
     }
 }

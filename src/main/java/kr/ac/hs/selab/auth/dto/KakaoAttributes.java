@@ -22,6 +22,14 @@ public class KakaoAttributes implements SocialAttributes {
         return oAuth2User.getName();
     }
 
+    private Object account(String key) {
+        Map<String, Object> account = oAuth2User.getAttribute(
+                AttributeKey.KAKAO_ACCOUNT.key
+        );
+        //noinspection ConstantConditions
+        return account.get(key);
+    }
+
     @Override
     public Name name() {
         //noinspection unchecked
@@ -40,14 +48,6 @@ public class KakaoAttributes implements SocialAttributes {
                         AttributeKey.EMAIL.key
                 )
         );
-    }
-
-    private Object account(String key) {
-        Map<String, Object> account = oAuth2User.getAttribute(
-                AttributeKey.KAKAO_ACCOUNT.key
-        );
-        //noinspection ConstantConditions
-        return account.get(key);
     }
 
     private enum AttributeKey {

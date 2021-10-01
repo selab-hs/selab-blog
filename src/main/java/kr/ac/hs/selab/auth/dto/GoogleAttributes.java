@@ -10,12 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 public class GoogleAttributes implements SocialAttributes {
     private final OAuth2User oAuth2User;
 
-    public Email email() {
-        return new Email(
-                oAuth2User.getAttribute(AttributeKey.EMAIL.key)
-        );
-    }
-
+    @Override
     public SocialType socialType() {
         return SocialType.GOOGLE;
     }
@@ -27,9 +22,12 @@ public class GoogleAttributes implements SocialAttributes {
 
     @Override
     public Name name() {
-        return new Name(
-                oAuth2User.getAttribute(AttributeKey.NAME.key)
-        );
+        return new Name(oAuth2User.getAttribute(AttributeKey.NAME.key));
+    }
+
+    @Override
+    public Email email() {
+        return new Email(oAuth2User.getAttribute(AttributeKey.EMAIL.key));
     }
 
     private enum AttributeKey {

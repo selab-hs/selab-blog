@@ -13,8 +13,8 @@ import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
 
-@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 @Embeddable
 public class Password {
     /**

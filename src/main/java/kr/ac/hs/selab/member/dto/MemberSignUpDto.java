@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @NoArgsConstructor
 @Data
-public class MemberSignDto {
+public class MemberSignUpDto {
     @NonNull
     private Email email;
 

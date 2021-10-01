@@ -11,12 +11,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
-
-@Embeddable
-@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@Embeddable
 public class Name {
-
     @Transient
     private static final String NAME_REGEX = "^[가-힣]{2,10}$";
 

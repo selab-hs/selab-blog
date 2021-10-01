@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
-public class SocialMemberSignDto {
+public class MemberSocialSignUpDto {
     @NonNull
     private Nickname nickname;
 
@@ -20,6 +20,12 @@ public class SocialMemberSignDto {
 
     @NonNull
     private StudentId studentId;
+
+    @NonNull
+    private boolean termService;
+
+    @NonNull
+    private boolean termPrivacy;
 
     @NonNull
     private boolean termLocation;

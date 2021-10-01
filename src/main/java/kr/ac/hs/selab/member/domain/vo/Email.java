@@ -11,9 +11,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import java.util.regex.Pattern;
 
-@Embeddable
-@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@Embeddable
 public class Email {
     /**
      * wrjs@naver.com
@@ -23,7 +23,6 @@ public class Email {
 
     @Column(name = "member_email", nullable = false)
     private String email;
-
 
     public Email(String email) {
         validate(email);

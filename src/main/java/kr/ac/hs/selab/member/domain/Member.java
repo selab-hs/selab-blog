@@ -6,7 +6,7 @@ import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
 import kr.ac.hs.selab.follow.domain.Follows;
 import kr.ac.hs.selab.member.domain.vo.*;
-import kr.ac.hs.selab.member.dto.SocialMemberSignDto;
+import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -79,12 +79,12 @@ public class Member extends Date {
                 .build();
     }
 
-    public static Member ofSocial(SocialAttributes socialMember) {
+    public static Member ofSocial(SocialAttributes socialAttributes) {
         return Member.builder()
-                .name(socialMember.name())
-                .email(socialMember.email())
-                .socialUserKey(socialMember.userKey())
-                .socialType(socialMember.socialType())
+                .name(socialAttributes.name())
+                .email(socialAttributes.email())
+                .socialUserKey(socialAttributes.userKey())
+                .socialType(socialAttributes.socialType())
                 .role(Role.USER)
                 .build();
     }
@@ -93,6 +93,26 @@ public class Member extends Date {
         return socialType != SocialType.BASIC;
     }
 
+    public boolean isNotCompletedSingUp() {
+        return Objects.isNull(nickname) ||
+                Objects.isNull(birth) ||
+                Objects.isNull(phoneNumber);
+    }
+
+    public void updateSocialMember(MemberSocialSignUpDto memberSocialSignUpDto) {
+        this.gender = memberSocialSignUpDto.getGender();
+        this.nickname = memberSocialSignUpDto.getNickname();
+        this.phoneNumber = memberSocialSignUpDto.getPhoneNumber();
+        this.birth = memberSocialSignUpDto.getBirth();
+        this.studentId = memberSocialSignUpDto.getStudentId();
+        this.termLocation = memberSocialSignUpDto.isTermLocation();
+        this.termPrivacy = memberSocialSignUpDto.isTermPrivacy();
+        this.termService = memberSocialSignUpDto.isTermService();
+    }
+
+    /**
+     * 팔로우
+     */
     public boolean follow(Member toMember) {
         Follow follow = new Follow(this, toMember);
         if (isFollowing(follow)) {
@@ -115,22 +135,5 @@ public class Member extends Date {
         follows.removeFromFollows(follow);
         toMember.follows.removeToFollows(follow);
         return false;
-    }
-
-    public boolean isNotCompletedSingUp() {
-        return Objects.isNull(nickname) ||
-                Objects.isNull(birth) ||
-                Objects.isNull(phoneNumber);
-    }
-
-    public void updateSocialMemberInfo(SocialMemberSignDto socialMemberSign) {
-        this.gender = socialMemberSign.getGender();
-        this.nickname = socialMemberSign.getNickname();
-        this.phoneNumber = socialMemberSign.getPhoneNumber();
-        this.birth = socialMemberSign.getBirth();
-        this.studentId = socialMemberSign.getStudentId();
-        this.termLocation = socialMemberSign.isTermLocation();
-        this.termPrivacy = true;
-        this.termService = true;
     }
 }

@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 public enum SocialType {
-    BASIC("", null),
+    BASIC("basic", null),
     GOOGLE("google", GoogleAttributes::new),
     KAKAO("kakao", KakaoAttributes::new),
     NAVER("naver", NaverAttributes::new);

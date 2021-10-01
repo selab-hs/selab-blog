@@ -5,11 +5,9 @@ import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Nickname;
 import kr.ac.hs.selab.member.domain.vo.PhoneNumber;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(Email email);
 

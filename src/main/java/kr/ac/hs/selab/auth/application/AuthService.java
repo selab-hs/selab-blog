@@ -19,13 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class AuthService implements UserDetailsService,
+public class AuthService implements
+        UserDetailsService,
         OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
         return memberRepository.findByEmail(new Email(username))
                 .orElseThrow(() -> {
                     throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다.");
@@ -35,7 +37,8 @@ public class AuthService implements UserDetailsService,
 
     @Transactional
     @Override
-    public OAuth2User loadUser(final OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+    public OAuth2User loadUser(final OAuth2UserRequest userRequest)
+            throws OAuth2AuthenticationException {
         SocialAttributes socialAttributes = newSocialAttributes(userRequest);
         Member member = findAndSaveSocialMember(socialAttributes);
 
@@ -55,9 +58,9 @@ public class AuthService implements UserDetailsService,
 
     private SocialAttributes newSocialAttributes(final OAuth2UserRequest userRequest) {
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        SocialType socialType = SocialType.of(registrationId);
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);
 
-        return socialType.toSocialAttributes(oAuth2User);
+        return SocialType.of(registrationId)
+                .toSocialAttributes(oAuth2User);
     }
 }
