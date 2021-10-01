@@ -52,6 +52,9 @@ public class Member extends Date {
     @Column(name = "member_social_type", nullable = false)
     private SocialType socialType;
 
+    @Embedded
+    private StudentId studentId;
+
     private String socialUserKey;
 
     @Column(name = "member_term_service", nullable = false)
@@ -125,6 +128,7 @@ public class Member extends Date {
         this.nickname = socialMemberSign.getNickname();
         this.phoneNumber = socialMemberSign.getPhoneNumber();
         this.birth = socialMemberSign.getBirth();
+        this.studentId = socialMemberSign.getStudentId();
         this.termLocation = socialMemberSign.isTermLocation();
         this.termPrivacy = true;
         this.termService = true;

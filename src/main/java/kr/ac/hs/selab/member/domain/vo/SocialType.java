@@ -17,16 +17,16 @@ public enum SocialType {
     KAKAO("kakao", KakaoAttributes::new),
     NAVER("naver", NaverAttributes::new);
 
-    private final String name;
-    private final Function<OAuth2User, SocialAttributes> attribute;
+    private final String registrationId;
+    private final Function<OAuth2User, SocialAttributes> newSocialMemberFunction;
 
     public SocialAttributes toSocialAttributes(OAuth2User oAuth2User) {
-        return attribute.apply(oAuth2User);
+        return newSocialMemberFunction.apply(oAuth2User);
     }
 
-    public static SocialType of(String name) {
+    public static SocialType of(String registrationId) {
         return Arrays.stream(values())
-                .filter(socialType -> socialType.name.equals(name))
+                .filter(socialType -> socialType.registrationId.equals(registrationId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("지원하지 않는 소셜 로그인 입니다."));
     }

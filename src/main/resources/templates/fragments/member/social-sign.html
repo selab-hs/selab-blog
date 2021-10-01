@@ -6,59 +6,89 @@
 <div th:replace="fragments/layout/header :: header"></div>
 
 <div class="container">
+    <br/>
+    <br/>
+    <h3>추가 정보 기입</h3>
+    <br/>
     <form
             th:role="form"
             th:action="@{/auth/signup/social}"
-            th:method="POST">
-        <div>
+            th:method="POST"
+            class="was-validated">
+        <div class="form-group">
             <label th:for="nickName">닉네임</label>
-            <input
-                    type="text"
-                    th:name="nickname"
-                    placeholder="닉네임을 입력하세요"
+            <input type="text"
+                   th:name="nickname"
+                   placeholder="닉네임을 입력하세요"
+                   class="form-control"
+                   required
             />
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
         </div>
 
-        <div>
+        <div class="form-group">
             <label th:for="gender">성별</label>
-            <select th:name="gender" placeholder="성별을 입력하세요">
+            <select class="custom-select"
+                    th:name="gender"
+                    required>
+                <option th:value="EMPTY" selected>선택안함</option>
                 <option th:value="MAN">남자</option>
                 <option th:value="WOMAN">여자</option>
-                <option th:value="EMPTY">선택안함</option>
             </select>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Check this checkbox to continue.</div>
         </div>
 
-        <div>
+        <div class="form-group">
             <label th:for="birth">생일</label>
-            <input
-                    type="text"
-                    th:name="birth"
-                    placeholder="생일 입력하세요"
+            <input type="text"
+                   th:name="birth"
+                   placeholder="생일을 입력하세요"
+                   class="form-control"
+                   required
             />
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
         </div>
 
-        <div>
+        <div class="form-group">
             <label th:for="phoneNumber">전화번호</label>
-            <input
-                    type="text"
-                    th:name="phoneNumber"
-                    placeholder="전화번호를 입력하세요"
+            <input type="text"
+                   th:name="phoneNumber"
+                   placeholder="전화번호를 입력하세요"
+                   class="form-control"
+                   required
             />
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
         </div>
 
-        <div>
+        <div class="form-group">
+            <label th:for="studentId">학번</label>
+            <input type="text"
+                   th:name="studentId"
+                   placeholder="학번을 입력하세요"
+                   class="form-control"
+                   required
+            />
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+
+        <div class="form-group">
             <label th:for="terms">서비스 이용약관 동의</label>
             <p>서비스 이용약관 동의를 진행해주세요</p>
             동의<input type="checkbox" th:value="true" th:name="termService">
         </div>
 
-        <div>
+        <div class="form-group">
             <label th:for="terms">개인정보 동의</label>
             <p>개인정보 동의를 진행해주세요</p>
             동의<input type="checkbox" th:value="true" th:name="termPrivacy">
         </div>
 
-        <div>
+        <div class="form-group">
             <label th:for="terms">위치정보 동의</label>
             <p>위치정보 동의를 진행해주세요</p>
             동의<input type="checkbox" th:value="true" th:name="termLocation">

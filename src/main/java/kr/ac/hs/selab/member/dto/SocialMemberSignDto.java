@@ -1,9 +1,6 @@
 package kr.ac.hs.selab.member.dto;
 
-import kr.ac.hs.selab.member.domain.vo.Birth;
-import kr.ac.hs.selab.member.domain.vo.Gender;
-import kr.ac.hs.selab.member.domain.vo.Nickname;
-import kr.ac.hs.selab.member.domain.vo.PhoneNumber;
+import kr.ac.hs.selab.member.domain.vo.*;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -20,6 +17,9 @@ public class SocialMemberSignDto {
 
     @NonNull
     private PhoneNumber phoneNumber;
+
+    @NonNull
+    private StudentId studentId;
 
     @NonNull
     private boolean termLocation;
