@@ -34,12 +34,12 @@ public class CustomUser implements UserDetails, OAuth2User {
 
     @Override
     public String getPassword() {
-        return this.password.getPassword();
+        return password.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.email.getEmail();
+        return email.getEmail();
     }
 
     @Override

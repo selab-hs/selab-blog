@@ -17,8 +17,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CustomUserService implements
         UserDetailsService,
         OAuth2UserService<OAuth2UserRequest, OAuth2User> {
