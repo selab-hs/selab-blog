@@ -11,28 +11,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Data
 public class MemberSignUpDto {
     @NonNull
-    private Email email;
+    private String email;
 
     @NonNull
-    private Password password;
+    private String password;
 
     @NonNull
-    private Name name;
+    private String name;
 
     @NonNull
-    private Nickname nickname;
+    private String nickname;
 
     @NonNull
     private Gender gender;
 
     @NonNull
-    private Birth birth;
+    private String birth;
 
     @NonNull
-    private PhoneNumber phoneNumber;
+    private String phoneNumber;
 
     @NonNull
-    private StudentId studentId;
+    private String studentId;
 
     @NonNull
     private boolean termService;
@@ -47,7 +47,7 @@ public class MemberSignUpDto {
         return Member.builder()
                 .email(email)
                 .name(name)
-                .password(password.encode(passwordEncoder))
+                .password(passwordEncoder.encode(password))
                 .nickname(nickname)
                 .gender(gender)
                 .birth(birth)

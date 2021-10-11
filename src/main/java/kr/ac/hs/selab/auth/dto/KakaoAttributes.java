@@ -1,7 +1,5 @@
 package kr.ac.hs.selab.auth.dto;
 
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Name;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -31,23 +29,15 @@ public class KakaoAttributes implements SocialAttributes {
     }
 
     @Override
-    public Name name() {
+    public String name() {
         //noinspection unchecked
         Map<String, Object> profile = (Map<String, Object>) account(AttributeKey.PROFILE.key);
-        return new Name(
-                (String) profile.get(
-                        AttributeKey.NICKNAME.key
-                )
-        );
+        return (String) profile.get(AttributeKey.NICKNAME.key);
     }
 
     @Override
-    public Email email() {
-        return new Email(
-                (String) account(
-                        AttributeKey.EMAIL.key
-                )
-        );
+    public String email() {
+        return (String) account(AttributeKey.EMAIL.key);
     }
 
     private enum AttributeKey {

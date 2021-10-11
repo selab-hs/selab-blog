@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        return memberRepository.findByEmail(new Email(username))
+        return memberRepository.findByEmail(username)
                 .orElseThrow(() -> {
                     throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다.");
                 })

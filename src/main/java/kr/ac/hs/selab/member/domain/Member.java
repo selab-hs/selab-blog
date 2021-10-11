@@ -23,27 +23,27 @@ public class Member extends Date {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Embedded
-    private Email email;
+    @Column(name = "member_email", nullable = false)
+    private String email;
 
-    @Embedded
-    private Password password;
+    @Column(name = "member_password")
+    private String password;
 
-    @Embedded
-    private Name name;
+    @Column(name = "member_name")
+    private String name;
 
-    @Embedded
-    private Nickname nickname;
+    @Column(name = "member_nickname")
+    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_gender")
     private Gender gender;
 
-    @Embedded
-    private Birth birth;
+    @Column(name = "member_birth")
+    private String birth;
 
-    @Embedded
-    private PhoneNumber phoneNumber;
+    @Column(name = "member_phone_number")
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
@@ -53,8 +53,8 @@ public class Member extends Date {
     @Column(name = "member_social_type", nullable = false)
     private SocialType socialType;
 
-    @Embedded
-    private StudentId studentId;
+    @Column(name = "member_student_id")
+    private String studentId;
 
     private String socialUserKey;
 
