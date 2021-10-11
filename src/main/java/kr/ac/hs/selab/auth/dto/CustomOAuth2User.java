@@ -5,11 +5,9 @@ import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.transaction.NotSupportedException;
@@ -19,47 +17,15 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Builder
-@Getter
-public class CustomUser implements UserDetails, OAuth2User {
+public class CustomOAuth2User implements OAuth2User {
     private final Long id;
     private final Email email;
     private final Password password;
     private final SocialType socialType;
     private final Role role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(role.grantedAuthority());
-    }
-
-    @Override
-    public String getPassword() {
-        return password.getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return email.getEmail();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public Long getId() {
+        return id;
     }
 
     @SneakyThrows
@@ -69,14 +35,13 @@ public class CustomUser implements UserDetails, OAuth2User {
         throw new NotSupportedException();
     }
 
-    @SneakyThrows
-    @Deprecated
     @Override
     public String getName() {
-        throw new NotSupportedException();
+        return email.getEmail();
     }
 
-    public boolean isSocial() {
-        return socialType != SocialType.BASIC;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(role.grantedAuthority());
     }
 }

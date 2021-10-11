@@ -2,13 +2,9 @@ package kr.ac.hs.selab.auth.application;
 
 import kr.ac.hs.selab.auth.dto.SocialAttributes;
 import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -19,21 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserService implements
-        UserDetailsService,
-        OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
-
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-        return memberRepository.findByEmail(new Email(username))
-                .orElseThrow(() -> {
-                    throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다.");
-                })
-                .toAuthPrincipal();
-    }
 
     @Transactional
     @Override
@@ -45,7 +28,7 @@ public class CustomUserService implements
         if (!member.isSocial()) {
             throw new RuntimeException("지원하지 않는 소셜 로그인 입니다.");
         }
-        return member.toAuthPrincipal();
+        return member.toCustomOAuth2User();
     }
 
     @Transactional

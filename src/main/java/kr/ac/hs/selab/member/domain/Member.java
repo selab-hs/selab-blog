@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.member.domain;
 
-import kr.ac.hs.selab.auth.dto.CustomUser;
+import kr.ac.hs.selab.auth.dto.CustomOAuth2User;
+import kr.ac.hs.selab.auth.dto.CustomUserDetails;
 import kr.ac.hs.selab.auth.dto.SocialAttributes;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
@@ -69,8 +70,18 @@ public class Member extends Date {
     @Embedded
     private Follows follows;
 
-    public CustomUser toAuthPrincipal() {
-        return CustomUser.builder()
+    public CustomUserDetails toCustomUserDetails() {
+        return CustomUserDetails.builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .socialType(socialType)
+                .role(role)
+                .build();
+    }
+
+    public CustomOAuth2User toCustomOAuth2User() {
+        return CustomOAuth2User.builder()
                 .id(id)
                 .email(email)
                 .password(password)
