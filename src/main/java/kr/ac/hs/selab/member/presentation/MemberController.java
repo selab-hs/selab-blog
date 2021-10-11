@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.member.presentation;
 
-import kr.ac.hs.selab.auth.dto.CustomOAuth2User;
+import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;

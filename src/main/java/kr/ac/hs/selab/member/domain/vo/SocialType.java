@@ -1,9 +1,9 @@
 package kr.ac.hs.selab.member.domain.vo;
 
-import kr.ac.hs.selab.auth.dto.GoogleAttributes;
-import kr.ac.hs.selab.auth.dto.KakaoAttributes;
-import kr.ac.hs.selab.auth.dto.NaverAttributes;
-import kr.ac.hs.selab.auth.dto.SocialAttributes;
+import kr.ac.hs.selab.oauth.dto.GoogleAttributes;
+import kr.ac.hs.selab.oauth.dto.KakaoAttributes;
+import kr.ac.hs.selab.oauth.dto.NaverAttributes;
+import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

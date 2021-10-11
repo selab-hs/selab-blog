@@ -1,8 +1,8 @@
 package kr.ac.hs.selab.member.domain;
 
-import kr.ac.hs.selab.auth.dto.CustomOAuth2User;
+import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.auth.dto.CustomUserDetails;
-import kr.ac.hs.selab.auth.dto.SocialAttributes;
+import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
 import kr.ac.hs.selab.follow.domain.Follows;

@@ -1,6 +1,6 @@
-package kr.ac.hs.selab.auth.application;
+package kr.ac.hs.selab.oauth.application;
 
-import kr.ac.hs.selab.auth.dto.SocialAttributes;
+import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;

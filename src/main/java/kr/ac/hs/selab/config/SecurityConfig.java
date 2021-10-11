@@ -1,6 +1,6 @@
-package kr.ac.hs.selab.auth.config;
+package kr.ac.hs.selab.config;
 
-import kr.ac.hs.selab.auth.application.CustomOAuth2UserService;
+import kr.ac.hs.selab.oauth.application.CustomOAuth2UserService;
 import kr.ac.hs.selab.auth.application.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

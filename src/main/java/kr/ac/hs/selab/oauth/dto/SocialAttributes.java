@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.auth.dto;
+package kr.ac.hs.selab.oauth.dto;
 
 import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Name;

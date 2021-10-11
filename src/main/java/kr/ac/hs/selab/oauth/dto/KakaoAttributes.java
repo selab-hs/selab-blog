@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.auth.dto;
+package kr.ac.hs.selab.oauth.dto;
 
 import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Name;
@@ -9,26 +9,34 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class NaverAttributes implements SocialAttributes {
+public class KakaoAttributes implements SocialAttributes {
     private final OAuth2User oAuth2User;
 
     @Override
     public SocialType socialType() {
-        return SocialType.NAVER;
+        return SocialType.KAKAO;
     }
 
     @Override
     public String userKey() {
-        return response(
-                AttributeKey.ID.key
+        return oAuth2User.getName();
+    }
+
+    private Object account(String key) {
+        Map<String, Object> account = oAuth2User.getAttribute(
+                AttributeKey.KAKAO_ACCOUNT.key
         );
+        //noinspection ConstantConditions
+        return account.get(key);
     }
 
     @Override
     public Name name() {
+        //noinspection unchecked
+        Map<String, Object> profile = (Map<String, Object>) account(AttributeKey.PROFILE.key);
         return new Name(
-                response(
-                        AttributeKey.NAME.key
+                (String) profile.get(
+                        AttributeKey.NICKNAME.key
                 )
         );
     }
@@ -36,26 +44,17 @@ public class NaverAttributes implements SocialAttributes {
     @Override
     public Email email() {
         return new Email(
-                response(
+                (String) account(
                         AttributeKey.EMAIL.key
                 )
         );
     }
 
-    private String response(String key) {
-        Map<String, String> response =
-                this.oAuth2User
-                        .getAttribute(
-                                AttributeKey.RESPONSE.key
-                        );
-        return response.get(key);
-    }
-
     private enum AttributeKey {
-        RESPONSE("response"),
-        ID("id"),
-        NAME("name"),
-        EMAIL("email");
+        KAKAO_ACCOUNT("kakao_account"),
+        EMAIL("email"),
+        PROFILE("profile"),
+        NICKNAME("nickname");
 
         private final String key;
 
