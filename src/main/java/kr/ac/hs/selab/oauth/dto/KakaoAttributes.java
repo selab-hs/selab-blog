@@ -17,11 +17,6 @@ public class KakaoAttributes implements SocialAttributes {
         return SocialType.KAKAO;
     }
 
-    @Override
-    public String userKey() {
-        return oAuth2User.getName();
-    }
-
     private Object account(String key) {
         Map<String, Object> account = oAuth2User.getAttribute(
                 AttributeKey.KAKAO_ACCOUNT.key

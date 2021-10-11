@@ -18,13 +18,6 @@ public class NaverAttributes implements SocialAttributes {
     }
 
     @Override
-    public String userKey() {
-        return response(
-                AttributeKey.ID.key
-        );
-    }
-
-    @Override
     public Name name() {
         return new Name(
                 response(

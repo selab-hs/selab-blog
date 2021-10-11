@@ -56,8 +56,6 @@ public class Member extends Date {
     @Embedded
     private StudentId studentId;
 
-    private String socialUserKey;
-
     @Column(name = "member_term_service", nullable = false)
     private boolean termService;
 
@@ -94,7 +92,6 @@ public class Member extends Date {
         return Member.builder()
                 .name(socialAttributes.name())
                 .email(socialAttributes.email())
-                .socialUserKey(socialAttributes.userKey())
                 .socialType(socialAttributes.socialType())
                 .role(Role.USER)
                 .build();

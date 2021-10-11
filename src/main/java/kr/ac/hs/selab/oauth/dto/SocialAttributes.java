@@ -7,8 +7,6 @@ import kr.ac.hs.selab.member.domain.vo.SocialType;
 public interface SocialAttributes {
     SocialType socialType();
 
-    String userKey();
-
     Name name();
 
     Email email();

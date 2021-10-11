@@ -16,11 +16,6 @@ public class GoogleAttributes implements SocialAttributes {
     }
 
     @Override
-    public String userKey() {
-        return oAuth2User.getName();
-    }
-
-    @Override
     public Name name() {
         return new Name(oAuth2User.getAttribute(AttributeKey.NAME.key));
     }
