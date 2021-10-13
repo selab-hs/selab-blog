@@ -1,7 +1,6 @@
 package kr.ac.hs.selab.oauth.dto;
 
 import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import lombok.Builder;
@@ -20,7 +19,6 @@ import java.util.Map;
 public class CustomOAuth2User implements OAuth2User {
     private final Long id;
     private final Email email;
-    private final Password password;
     private final SocialType socialType;
     private final Role role;
 

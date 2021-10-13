@@ -82,7 +82,6 @@ public class Member extends Date {
         return CustomOAuth2User.builder()
                 .id(id)
                 .email(email)
-                .password(password)
                 .role(role)
                 .socialType(socialType)
                 .build();
