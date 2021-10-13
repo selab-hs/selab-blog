@@ -1,12 +1,8 @@
 package kr.ac.hs.selab.board.domain;
 
-import kr.ac.hs.selab.board.domain.vo.Content;
-import kr.ac.hs.selab.board.domain.vo.Title;
-import kr.ac.hs.selab.board.dto.BoardDto;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
-import kr.ac.hs.selab.post.dto.PostDto;
 import kr.ac.hs.selab.post.dto.PostMakeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +10,6 @@ import lombok.Builder;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 @Entity
 @Builder
@@ -24,38 +18,40 @@ public class Board extends Date {
     @Id
     @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @Embedded
-    private Title title;
+    @Column(name = "board_title", unique = true)
+    private String title;
 
-    @Embedded
-    private Content content;
+    @Lob
+    @Column(name = "board_content")
+    private String content;
 
     @OneToMany(mappedBy = "postBoard", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
-    public static Board of(BoardDto dto) {
-        return Board.builder()
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .build();
-    }
-
     protected Board() {
-
     }
 
-    public Title getTitle() {
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
         return title;
     }
 
-    public Content getContent() {
+    public String getContent() {
         return content;
     }
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
     public void post(PostMakeDto dto, Member member) {

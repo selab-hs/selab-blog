@@ -2,13 +2,12 @@ package kr.ac.hs.selab.member.application;
 
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.dro.MemberSignDto;
+import kr.ac.hs.selab.member.dto.MemberSignDto;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 @RequiredArgsConstructor

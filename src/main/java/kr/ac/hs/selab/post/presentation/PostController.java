@@ -2,7 +2,6 @@ package kr.ac.hs.selab.post.presentation;
 
 import kr.ac.hs.selab.auth.dto.AuthPrincipal;
 import kr.ac.hs.selab.board.application.BoardService;
-import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.domain.vo.Title;
 import kr.ac.hs.selab.board.dto.BoardDto;
 import kr.ac.hs.selab.member.application.MemberService;
@@ -17,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,25 +28,25 @@ public class PostController {
 
     @GetMapping("/posts")
     public String post(@RequestParam("title") Title title, Model model) {
-        List<BoardDto> boards = boardService.findBoards();
+        List<BoardDto> boards = boardService.findAll();
         model.addAttribute("boards", boards);
 
         List<PostDto> postDto = boardService.findPosts(title);
         model.addAttribute("posts", postDto);
-        return "fragments/post/post";
+        return "fragments/post/posts";
     }
 
     @GetMapping("/post")
     public String makePost(Model model) {
-        List<BoardDto> boards = boardService.findBoards();
+        List<BoardDto> boards = boardService.findAll();
         model.addAttribute("boards", boards);
         model.addAttribute("post", new PostMakeDto());
         return "fragments/post/create-post";
     }
 
     @PostMapping("/post")
-    public String makePost(@AuthenticationPrincipal AuthPrincipal principal, Model model, PostMakeDto postDto) {
-        List<BoardDto> boards = boardService.findBoards();
+    public String makePost(@AuthenticationPrincipal AuthPrincipal principal, Model model, PostMakeDto postDto, RedirectAttributes redirectAttributes) {
+        List<BoardDto> boards = boardService.findAll();
         model.addAttribute("boards", boards);
 
         Email email = new Email(principal.getUsername());
@@ -55,8 +55,7 @@ public class PostController {
         Member member = memberService.findByEmail(email);
 
         boardService.createPost(member, postDto, title);
-
-        return "fragments/post/post";
+        redirectAttributes.addAttribute("title", title.getTitle());
+        return "redirect:/posts";
     }
-
 }

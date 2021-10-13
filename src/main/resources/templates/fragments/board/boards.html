@@ -6,14 +6,16 @@
 
 <body>
 <div th:replace="fragments/layout/header :: header(${boards})"></div>
-
 <div class="container">
-    <div class="card m-2" th:each="post : ${posts}">
+    <br>
+    <br>
+    <div class="card m-2" th:each="board : ${boards}">
         <div class="card-body">
             <div>
-                <h4 class="card-title" th:text="${post.subTitle.getSubTitle()}"></h4>
+                <h4 class="card-title" th:text="${board.getTitle()}"></h4>
                 <h6>👁 조회수</h6>
                 <h6>😍 좋아요</h6>
+                <h4 class="card-text" th:text="${board.getContent()}"></h4>
             </div>
             <a href="#" class="btn btn-info">상세보기</a>
         </div>

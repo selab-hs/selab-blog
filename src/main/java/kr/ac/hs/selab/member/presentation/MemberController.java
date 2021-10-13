@@ -3,7 +3,7 @@ package kr.ac.hs.selab.member.presentation;
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.board.dto.BoardDto;
 import kr.ac.hs.selab.member.application.MemberService;
-import kr.ac.hs.selab.member.dro.MemberSignDto;
+import kr.ac.hs.selab.member.dto.MemberSignDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class MemberController {
     @GetMapping("sign")
     public String sign(Model model) {
         model.addAttribute("memberSignDto", new MemberSignDto());
-        List<BoardDto> boards = boardService.findBoards();
+        List<BoardDto> boards = boardService.findAll();
         model.addAttribute("boards", boards);
         return "/fragments/member/sign";
     }
@@ -37,7 +37,7 @@ public class MemberController {
 
     @GetMapping("login")
     public String login(Model model) {
-        List<BoardDto> boards = boardService.findBoards();
+        List<BoardDto> boards = boardService.findAll();
         model.addAttribute("boards", boards);
         return "/fragments/member/login";
     }

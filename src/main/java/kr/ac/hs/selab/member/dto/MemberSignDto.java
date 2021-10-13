@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.member.dro;
+package kr.ac.hs.selab.member.dto;
 
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.*;

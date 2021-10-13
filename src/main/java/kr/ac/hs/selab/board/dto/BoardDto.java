@@ -1,24 +1,20 @@
 package kr.ac.hs.selab.board.dto;
 
-import kr.ac.hs.selab.board.domain.vo.Content;
-import kr.ac.hs.selab.board.domain.vo.Title;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Data
+@Builder
 public class BoardDto {
-    @NonNull
-    private Title title;
+   @Pattern(regexp = "^.{3,10}$", message = "제목 형식이 옳바르지 않습니다.")
+    private String title;
 
-    @NonNull
-    private Content content;
+   @NotBlank(message = "게시판 소개 형식이 옳바르지 않습니다.")
+    private String content;
 
     public BoardDto() {
     }
-
-    public BoardDto(@NonNull Title title, @NonNull Content content) {
-        this.title = title;
-        this.content = content;
-    }
-
 }

@@ -16,7 +16,9 @@ public enum ErrorMessage {
     INVALID_CONTENT("게시판 소개글은 최소 5자 ~ 최대 50자 입니다."),
     NO_PERMISSION_MEMBER("권한이 없는 사용자 입니다."),
     INVALID_SUB_TITLE("제목은 최소 5자 ~ 최대 30자 입니다."),
-    IS_NOT_EXIT_BOARD("존재하지 않는 게시판 입니다.");
+    IS_NOT_EXIT_BOARD("존재하지 않는 게시판 입니다."),
+    DUPLICATION_BOARD_TITLE("게시판 명이 중복되었습니다."),
+    OVERABUNDANCE_BOARD_COUNT("게시판 생성 개수를 초과했습니다.");
 
     private final String message;
 
