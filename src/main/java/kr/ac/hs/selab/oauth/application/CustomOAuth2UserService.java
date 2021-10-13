@@ -1,9 +1,9 @@
 package kr.ac.hs.selab.oauth.application;
 
-import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
+import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

@@ -1,19 +1,21 @@
 package kr.ac.hs.selab.member.domain;
 
-import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.auth.dto.CustomUserDetails;
-import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.follow.domain.Follow;
 import kr.ac.hs.selab.follow.domain.Follows;
-import kr.ac.hs.selab.member.domain.vo.*;
+import kr.ac.hs.selab.member.domain.vo.Gender;
+import kr.ac.hs.selab.member.domain.vo.Role;
+import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
-import lombok.*;
+import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
+import kr.ac.hs.selab.oauth.dto.SocialAttributes;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Entity
@@ -23,27 +25,27 @@ public class Member extends Date {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Embedded
-    private Email email;
+    @Column(name = "member_email", nullable = false)
+    private String email;
 
-    @Embedded
-    private Password password;
+    @Column(name = "member_password")
+    private String password;
 
-    @Embedded
-    private Name name;
+    @Column(name = "member_name")
+    private String name;
 
-    @Embedded
-    private Nickname nickname;
+    @Column(name = "member_nickname")
+    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_gender")
     private Gender gender;
 
-    @Embedded
-    private Birth birth;
+    @Column(name = "member_birth")
+    private String birth;
 
-    @Embedded
-    private PhoneNumber phoneNumber;
+    @Column(name = "member_phone_number")
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
@@ -53,8 +55,8 @@ public class Member extends Date {
     @Column(name = "member_social_type", nullable = false)
     private SocialType socialType;
 
-    @Embedded
-    private StudentId studentId;
+    @Column(name = "member_student_id")
+    private String studentId;
 
     @Column(name = "member_term_service", nullable = false)
     private boolean termService;
@@ -67,6 +69,9 @@ public class Member extends Date {
 
     @Embedded
     private Follows follows;
+
+    protected Member() {
+    }
 
     public CustomUserDetails toCustomUserDetails() {
         return CustomUserDetails.builder()

@@ -1,8 +1,6 @@
 package kr.ac.hs.selab.member.application;
 
 import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.member.domain.vo.Nickname;
-import kr.ac.hs.selab.member.domain.vo.PhoneNumber;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
@@ -45,7 +43,7 @@ public class MemberService {
         member.updateSocialMember(memberSocialSignUpDto);
     }
 
-    private void validateDuplicateMemberPrivacy(Nickname nickname, PhoneNumber phoneNumber) {
+    private void validateDuplicateMemberPrivacy(String nickname, String phoneNumber) {
         if (existsByNickname(nickname)) {
             throw new RuntimeException("중복된 닉네임 입니다.");
         }
@@ -55,12 +53,12 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByNickname(Nickname nickname) {
+    public boolean existsByNickname(String nickname) {
         return memberRepository.existsByNickname(nickname);
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByPhoneNumber(PhoneNumber phoneNumber) {
+    public boolean existsByPhoneNumber(String phoneNumber) {
         return memberRepository.existsByPhoneNumber(phoneNumber);
     }
 }

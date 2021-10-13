@@ -1,7 +1,5 @@
 package kr.ac.hs.selab.auth.dto;
 
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import lombok.Builder;
@@ -16,8 +14,8 @@ import java.util.Collections;
 @Builder
 public class CustomUserDetails implements UserDetails {
     private final Long id;
-    private final Email email;
-    private final Password password;
+    private final String email;
+    private final String password;
     private final SocialType socialType;
     private final Role role;
 
@@ -28,12 +26,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return email.getEmail();
+        return email;
     }
 
     @Override

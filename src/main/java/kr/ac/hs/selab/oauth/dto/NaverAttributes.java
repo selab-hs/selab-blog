@@ -1,7 +1,5 @@
 package kr.ac.hs.selab.oauth.dto;
 
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Name;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -18,21 +16,13 @@ public class NaverAttributes implements SocialAttributes {
     }
 
     @Override
-    public Name name() {
-        return new Name(
-                response(
-                        AttributeKey.NAME.key
-                )
-        );
+    public String name() {
+        return response(AttributeKey.NAME.key);
     }
 
     @Override
-    public Email email() {
-        return new Email(
-                response(
-                        AttributeKey.EMAIL.key
-                )
-        );
+    public String email() {
+        return response(AttributeKey.EMAIL.key);
     }
 
     private String response(String key) {

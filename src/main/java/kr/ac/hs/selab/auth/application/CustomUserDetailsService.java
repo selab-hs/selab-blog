@@ -1,6 +1,5 @@
 package kr.ac.hs.selab.auth.application;
 
-import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        return memberRepository.findByEmail(new Email(username))
+        return memberRepository.findByEmail(username)
                 .orElseThrow(() -> {
                     throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다.");
                 })

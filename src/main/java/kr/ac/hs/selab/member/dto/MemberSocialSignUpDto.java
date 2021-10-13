@@ -1,25 +1,25 @@
 package kr.ac.hs.selab.member.dto;
 
-import kr.ac.hs.selab.member.domain.vo.*;
+import kr.ac.hs.selab.member.domain.vo.Gender;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
 public class MemberSocialSignUpDto {
     @NonNull
-    private Nickname nickname;
+    private String nickname;
 
     @NonNull
     private Gender gender;
 
     @NonNull
-    private Birth birth;
+    private String birth;
 
     @NonNull
-    private PhoneNumber phoneNumber;
+    private String phoneNumber;
 
     @NonNull
-    private StudentId studentId;
+    private String studentId;
 
     @NonNull
     private boolean termService;

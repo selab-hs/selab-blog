@@ -1,9 +1,9 @@
 package kr.ac.hs.selab.member.presentation;
 
-import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
+import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
