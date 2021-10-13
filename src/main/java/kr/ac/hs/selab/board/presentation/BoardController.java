@@ -19,9 +19,9 @@ public class BoardController {
     private final BoardService boardService;
 
     // 게시판 생성
-    @GetMapping("/create")
+    @GetMapping("/insert")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public String write(Model model) {
+    public String insert(Model model) {
         // 상단 Board 제목 출력 //
         model.addAttribute("boards", boardService.findAll());
         // 상단 Board 제목 출력 //
@@ -32,9 +32,9 @@ public class BoardController {
     }
 
     // 게시판 생성
-    @PostMapping("/create")
+    @PostMapping("/insert")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public String write(@Valid BoardDto dto, Model model) {
+    public String insert(@Valid BoardDto dto, Model model) {
         // 상단 Board 제목 출력 //
         model.addAttribute("boards", boardService.findAll());
         // 상단 Board 제목 출력 //
@@ -70,7 +70,7 @@ public class BoardController {
     }
 
     // 게시판 수정하기
-    @PostMapping("/update/{id}")
+    @PatchMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public String edit(@PathVariable Long id, Model model, BoardDto dto) {
         // Board 출력 //

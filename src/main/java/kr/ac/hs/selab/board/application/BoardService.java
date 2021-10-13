@@ -7,13 +7,14 @@ import kr.ac.hs.selab.board.dto.BoardDto;
 import kr.ac.hs.selab.board.infrastructure.BoardRepository;
 import kr.ac.hs.selab.exception.DuplicationException;
 import kr.ac.hs.selab.exception.ErrorMessage;
-import kr.ac.hs.selab.exception.NonExistBoard;
+import kr.ac.hs.selab.exception.NonExitsException;
 import kr.ac.hs.selab.exception.OverabundanceException;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostDto;
-import kr.ac.hs.selab.post.dto.PostMakeDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,14 +64,14 @@ public class BoardService {
     @Transactional(readOnly = true)
     public BoardDetailDto inquire(Long id) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new NonExistBoard(ErrorMessage.IS_NOT_EXIT_BOARD));
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_BOARD));
         return boardConverter.toBoardDetailDto(board);
     }
 
     @Transactional
     public void update(Long id, BoardDto dto) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new NonExistBoard(ErrorMessage.IS_NOT_EXIT_BOARD));
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_BOARD));
         board.update(dto.getTitle(), dto.getContent());
     }
 
@@ -79,25 +80,9 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-
     @Transactional(readOnly = true)
-    public List<PostDto> findPosts(Title title) {
-        List<Post> posts = boardRepository.findBoardByTitle(title)
-                .orElseThrow(() -> new NonExistBoard(ErrorMessage.IS_NOT_EXIT_BOARD)).getPosts();
-        return makePostDto(posts);
-    }
-
-    private List<PostDto> makePostDto(List<Post> posts) {
-        return posts.stream()
-                .map(post -> new PostDto(post.getSubTitle()))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void createPost(Member member, PostMakeDto dto, Title title) {
-        // Optional map 긔긔!~
-        Board board = boardRepository.findBoardByTitle(title)
-                .orElseThrow(() -> new NonExistBoard(ErrorMessage.IS_NOT_EXIT_BOARD));
-        board.post(dto, member);
+    public Board findById(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_BOARD));
     }
 }

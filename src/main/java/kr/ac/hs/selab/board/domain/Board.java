@@ -3,7 +3,6 @@ package kr.ac.hs.selab.board.domain;
 import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
-import kr.ac.hs.selab.post.dto.PostMakeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -54,8 +53,7 @@ public class Board extends Date {
         this.content = content;
     }
 
-    public void post(PostMakeDto dto, Member member) {
-        Post post = new Post(dto.getSubTitle(), dto.getSubContent(), member, this);
+    public void addPost(Post post) {
         posts.add(post);
     }
 }

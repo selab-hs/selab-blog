@@ -24,5 +24,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Override
     void deleteById(Long id);
 
-    Optional<Board> findBoardByTitle(Title title);
+    Optional<Board> findBoardByTitle(Long id);
 }

@@ -69,6 +69,10 @@ public class Member extends Date {
     @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Post> posts = new TreeSet<>();
 
+    protected Member() {
+
+    }
+
     public AuthPrincipal toAuthPrincipal() {
         return AuthPrincipal.builder()
                 .id(id)
@@ -102,8 +106,9 @@ public class Member extends Date {
         return false;
     }
 
-    protected Member() {
-
+    public void addPost(Post post) {
+        posts.add(post);
     }
-    
+
+
 }
