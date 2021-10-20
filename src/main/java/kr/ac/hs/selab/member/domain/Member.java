@@ -7,7 +7,7 @@ import kr.ac.hs.selab.follow.domain.Follows;
 import kr.ac.hs.selab.member.domain.vo.Gender;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
-import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
+import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import lombok.AllArgsConstructor;
@@ -111,15 +111,15 @@ public class Member extends Date {
                 Objects.isNull(phoneNumber);
     }
 
-    public void updateSocialMember(MemberSocialSignUpDto memberSocialSignUpDto) {
-        this.gender = memberSocialSignUpDto.getGender();
-        this.nickname = memberSocialSignUpDto.getNickname();
-        this.phoneNumber = memberSocialSignUpDto.getPhoneNumber();
-        this.birth = memberSocialSignUpDto.getBirth();
-        this.studentId = memberSocialSignUpDto.getStudentId();
-        this.termLocation = memberSocialSignUpDto.isTermLocation();
-        this.termPrivacy = memberSocialSignUpDto.isTermPrivacy();
-        this.termService = memberSocialSignUpDto.isTermService();
+    public void updateMemberPrivacy(MemberPrivacyDto memberPrivacyDto) {
+        this.gender = memberPrivacyDto.getGender();
+        this.nickname = memberPrivacyDto.getNickname();
+        this.phoneNumber = memberPrivacyDto.getPhoneNumber();
+        this.birth = memberPrivacyDto.getBirth();
+        this.studentId = memberPrivacyDto.getStudentId();
+        this.termLocation = memberPrivacyDto.isTermLocation();
+        this.termPrivacy = memberPrivacyDto.isTermPrivacy();
+        this.termService = memberPrivacyDto.isTermService();
     }
 
     /**

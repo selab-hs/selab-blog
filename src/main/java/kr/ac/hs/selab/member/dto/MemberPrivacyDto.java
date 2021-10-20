@@ -9,7 +9,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class MemberSocialSignUpDto {
+public class MemberPrivacyDto {
     @NonNull
     @Pattern(regexp = MemberValidUtils.Regexp.NICKNAME, message = MemberValidUtils.Message.NICKNAME)
     private String nickname;
@@ -41,6 +41,6 @@ public class MemberSocialSignUpDto {
     @AssertTrue(message = MemberValidUtils.Message.TERM_LOCATION)
     private boolean termLocation;
 
-    protected MemberSocialSignUpDto() {
+    protected MemberPrivacyDto() {
     }
 }

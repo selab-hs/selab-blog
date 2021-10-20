@@ -3,8 +3,8 @@ package kr.ac.hs.selab.member.application;
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.InvalidLoginException;
 import kr.ac.hs.selab.member.domain.Member;
+import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
-import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +30,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateSocialMember(Long memberId, MemberSocialSignUpDto memberSocialSignUpDto) {
+    public void updateSocialMember(Long memberId, MemberPrivacyDto memberPrivacyDto) {
         Member member = findById(memberId);
 
         if (!member.isNotCompletedSingUp()) {
@@ -38,11 +38,17 @@ public class MemberService {
         }
 
         validateDuplicateMemberPrivacy(
-                memberSocialSignUpDto.getNickname(),
-                memberSocialSignUpDto.getPhoneNumber()
+                memberPrivacyDto.getNickname(),
+                memberPrivacyDto.getPhoneNumber()
         );
 
-        member.updateSocialMember(memberSocialSignUpDto);
+        member.updateMemberPrivacy(memberPrivacyDto);
+    }
+
+    @Transactional
+    public void updateMember(Long memberId, MemberPrivacyDto memberPrivacyDto) {
+        Member member = findById(memberId);
+        member.updateMemberPrivacy(memberPrivacyDto);
     }
 
     private void validateDuplicateMemberPrivacy(String nickname, String phoneNumber) {

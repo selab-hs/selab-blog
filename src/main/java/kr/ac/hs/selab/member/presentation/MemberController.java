@@ -1,8 +1,8 @@
 package kr.ac.hs.selab.member.presentation;
 
 import kr.ac.hs.selab.member.application.MemberService;
+import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
-import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -37,8 +37,20 @@ public class MemberController {
 
     @PostMapping("signup/social")
     public String signUpSocial(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-                               @Valid MemberSocialSignUpDto memberSocialSignUpDto) {
-        memberService.updateSocialMember(customOAuth2User.getId(), memberSocialSignUpDto);
+                               @Valid MemberPrivacyDto memberPrivacyDto) {
+        memberService.updateSocialMember(customOAuth2User.getId(), memberPrivacyDto);
+        return "fragments/index";
+    }
+
+    @GetMapping("edit")
+    public String edit() {
+        return "fragments/member/edit";
+    }
+
+    @PostMapping("edit")
+    public String edit(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+                       @Valid MemberPrivacyDto memberPrivacyDto) {
+        memberService.updateMember(customOAuth2User.getId(), memberPrivacyDto);
         return "fragments/index";
     }
 
