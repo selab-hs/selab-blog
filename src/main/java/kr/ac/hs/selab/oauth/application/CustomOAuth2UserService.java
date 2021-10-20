@@ -1,5 +1,7 @@
 package kr.ac.hs.selab.oauth.application;
 
+import kr.ac.hs.selab.exception.ErrorMessage;
+import kr.ac.hs.selab.exception.InvalidLoginException;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
@@ -26,7 +28,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         Member member = findAndSaveSocialMember(socialAttributes);
 
         if (!member.isSocial()) {
-            throw new RuntimeException("지원하지 않는 소셜 로그인 입니다.");
+            throw new InvalidLoginException(ErrorMessage.INVALID_SOCIAL_LOGIN);
         }
         return member.toCustomOAuth2User();
     }

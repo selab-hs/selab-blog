@@ -1,5 +1,7 @@
 package kr.ac.hs.selab.member.domain.vo;
 
+import kr.ac.hs.selab.exception.ErrorMessage;
+import kr.ac.hs.selab.exception.InvalidLoginException;
 import kr.ac.hs.selab.oauth.dto.GoogleAttributes;
 import kr.ac.hs.selab.oauth.dto.KakaoAttributes;
 import kr.ac.hs.selab.oauth.dto.NaverAttributes;
@@ -28,6 +30,6 @@ public enum SocialType {
         return Arrays.stream(values())
                 .filter(socialType -> socialType.registrationId.equals(registrationId))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("지원하지 않는 소셜 로그인 입니다."));
+                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.INVALID_SOCIAL_LOGIN));
     }
 }

@@ -1,5 +1,7 @@
 package kr.ac.hs.selab.member.application;
 
+import kr.ac.hs.selab.exception.ErrorMessage;
+import kr.ac.hs.selab.exception.InvalidLoginException;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignUpDto;
@@ -23,7 +25,7 @@ public class MemberService {
     private Member findById(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> {
-                    throw new RuntimeException("회원 정보가 없습니다.");
+                    throw new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER);
                 });
     }
 
@@ -32,7 +34,7 @@ public class MemberService {
         Member member = findById(memberId);
 
         if (!member.isNotCompletedSingUp()) {
-            throw new RuntimeException("가입이 이미 완료 되었습니다.");
+            throw new InvalidLoginException(ErrorMessage.EXISTENT_USER);
         }
 
         validateDuplicateMemberPrivacy(
@@ -45,10 +47,10 @@ public class MemberService {
 
     private void validateDuplicateMemberPrivacy(String nickname, String phoneNumber) {
         if (existsByNickname(nickname)) {
-            throw new RuntimeException("중복된 닉네임 입니다.");
+            throw new InvalidLoginException(ErrorMessage.EXISTENT_NICKNAME);
         }
         if (existsByPhoneNumber(phoneNumber)) {
-            throw new RuntimeException("중복된 전화번호 입니다.");
+            throw new InvalidLoginException(ErrorMessage.EXISTENT_PHONE_NUMBER);
         }
     }
 
