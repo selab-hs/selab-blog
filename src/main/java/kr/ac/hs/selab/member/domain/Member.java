@@ -23,7 +23,7 @@ public class Member extends Date {
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(name = "member_email", nullable = false)
     private String email;
@@ -120,6 +120,16 @@ public class Member extends Date {
         this.termLocation = memberPrivacyDto.isTermLocation();
         this.termPrivacy = memberPrivacyDto.isTermPrivacy();
         this.termService = memberPrivacyDto.isTermService();
+    }
+
+    public boolean checkPrivacyEmpty() {
+        return Objects.isNull(nickname) ||
+                gender == Gender.EMPTY ||
+                Objects.isNull(phoneNumber) ||
+                Objects.isNull(studentId) ||
+                !termService ||
+                !termPrivacy ||
+                !termLocation;
     }
 
     /**
