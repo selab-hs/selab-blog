@@ -19,6 +19,10 @@ public class CustomUserDetails implements UserDetails {
     private final SocialType socialType;
     private final Role role;
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(role.grantedAuthority());

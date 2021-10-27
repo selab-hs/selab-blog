@@ -2,7 +2,6 @@ package kr.ac.hs.selab.oauth.application;
 
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.InvalidLoginException;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
