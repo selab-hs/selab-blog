@@ -26,12 +26,18 @@ public class OAuth2Interceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object object,
                            ModelAndView modelAndView) throws IOException {
-        if (!Objects.isNull(request.getUserPrincipal())) {
-            Member member = memberRepository.findByEmail(request.getUserPrincipal().getName())
-                    .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER_PRIVACY));
-            if (member.checkPrivacyEmpty()) {
-                response.sendRedirect(SOCIAL_SIGN_UP_URL);
-            }
+        if (!isNullPrincipal(request) && isMemberPrivacyEmpty(request)) {
+            response.sendRedirect(SOCIAL_SIGN_UP_URL);
         }
+    }
+
+    private boolean isNullPrincipal(HttpServletRequest request) {
+        return Objects.isNull(request.getUserPrincipal());
+    }
+
+    private boolean isMemberPrivacyEmpty(HttpServletRequest request) {
+        return memberRepository.findByEmail(request.getUserPrincipal().getName())
+                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER_PRIVACY))
+                .checkPrivacyEmpty();
     }
 }
