@@ -36,9 +36,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Transactional
     public Member findAndSaveSocialMember(SocialAttributes socialAttributes) {
         return memberRepository.findByEmail(socialAttributes.email())
-                .orElseGet(() ->
-                        memberRepository.save(Member.ofSocial(socialAttributes))
-                );
+                .orElseGet(() -> memberRepository.save(Member.ofSocial(socialAttributes)));
     }
 
     private SocialAttributes newSocialAttributes(final OAuth2UserRequest userRequest) {

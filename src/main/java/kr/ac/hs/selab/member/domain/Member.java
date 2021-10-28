@@ -100,13 +100,7 @@ public class Member extends Date {
         return socialType != SocialType.BASIC;
     }
 
-    public boolean isNotCompletedSingUp() {
-        return Objects.isNull(nickname) ||
-                Objects.isNull(birth) ||
-                Objects.isNull(phoneNumber);
-    }
-
-    public void updateMemberPrivacy(MemberPrivacyDto memberPrivacyDto) {
+    public void updatePrivacy(MemberPrivacyDto memberPrivacyDto) {
         this.gender = memberPrivacyDto.getGender();
         this.nickname = memberPrivacyDto.getNickname();
         this.phoneNumber = memberPrivacyDto.getPhoneNumber();

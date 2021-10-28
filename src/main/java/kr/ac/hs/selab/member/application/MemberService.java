@@ -18,55 +18,48 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void createMember(MemberSignUpDto memberSignUpDto) {
+    public void create(MemberSignUpDto memberSignUpDto) {
         memberRepository.save(memberSignUpDto.toMember(passwordEncoder));
     }
 
-    private Member findById(Long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER);
-                });
+    @Transactional
+    public void updateSocialInfo(Long memberId, MemberPrivacyDto memberPrivacyDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER));
+
+        validateDuplicateNickname(memberPrivacyDto.getNickname());
+        validateDuplicatePhoneNumber(memberPrivacyDto.getPhoneNumber());
+        validatePrivacyEmpty(member);
+
+        member.updatePrivacy(memberPrivacyDto);
     }
 
     @Transactional
-    public void updateSocialMember(Long memberId, MemberPrivacyDto memberPrivacyDto) {
-        Member member = findById(memberId);
+    public void updatePrivacy(Long memberId, MemberPrivacyDto memberPrivacyDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER));
 
-        if (!member.isNotCompletedSingUp()) {
+        validateDuplicateNickname(memberPrivacyDto.getNickname());
+        validateDuplicatePhoneNumber(memberPrivacyDto.getPhoneNumber());
+
+        member.updatePrivacy(memberPrivacyDto);
+    }
+
+    private void validatePrivacyEmpty(Member member) {
+        if (!member.checkPrivacyEmpty()) {
             throw new InvalidLoginException(ErrorMessage.EXISTENT_USER);
         }
-
-        validateDuplicateMemberPrivacy(
-                memberPrivacyDto.getNickname(),
-                memberPrivacyDto.getPhoneNumber()
-        );
-
-        member.updateMemberPrivacy(memberPrivacyDto);
     }
 
-    @Transactional
-    public void updateMember(Long memberId, MemberPrivacyDto memberPrivacyDto) {
-        Member member = findById(memberId);
-        member.updateMemberPrivacy(memberPrivacyDto);
-    }
-
-    private void validateDuplicateMemberPrivacy(String nickname, String phoneNumber) {
-        if (existsByNickname(nickname)) {
+    private void validateDuplicateNickname(String nickname) {
+        if (memberRepository.existsByNickname(nickname)) {
             throw new InvalidLoginException(ErrorMessage.EXISTENT_NICKNAME);
         }
-        if (existsByPhoneNumber(phoneNumber)) {
+    }
+
+    private void validateDuplicatePhoneNumber(String phoneNumber) {
+        if (memberRepository.existsByPhoneNumber(phoneNumber)) {
             throw new InvalidLoginException(ErrorMessage.EXISTENT_PHONE_NUMBER);
         }
-    }
-
-    @Transactional(readOnly = true)
-    public boolean existsByNickname(String nickname) {
-        return memberRepository.existsByNickname(nickname);
-    }
-
-    @Transactional(readOnly = true)
-    public boolean existsByPhoneNumber(String phoneNumber) {
-        return memberRepository.existsByPhoneNumber(phoneNumber);
     }
 }

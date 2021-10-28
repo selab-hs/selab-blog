@@ -19,6 +19,11 @@ import javax.validation.Valid;
 public class MemberController {
     private final MemberService memberService;
 
+    @GetMapping("login")
+    public String login() {
+        return "/fragments/member/login";
+    }
+
     @GetMapping("sign")
     public String sign() {
         return "/fragments/member/sign";
@@ -26,7 +31,7 @@ public class MemberController {
 
     @PostMapping("sign")
     public String sign(@Valid MemberSignUpDto memberSignUpDto) {
-        memberService.createMember(memberSignUpDto);
+        memberService.create(memberSignUpDto);
         return "redirect:/auth/login";
     }
 
@@ -38,7 +43,7 @@ public class MemberController {
     @PostMapping("signup/social")
     public String signUpSocial(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
                                @Valid MemberPrivacyDto memberPrivacyDto) {
-        memberService.updateSocialMember(customOAuth2User.getId(), memberPrivacyDto);
+        memberService.updateSocialInfo(customOAuth2User.getId(), memberPrivacyDto);
         return "fragments/index";
     }
 
@@ -50,12 +55,7 @@ public class MemberController {
     @PostMapping("edit")
     public String edit(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
                        @Valid MemberPrivacyDto memberPrivacyDto) {
-        memberService.updateMember(customOAuth2User.getId(), memberPrivacyDto);
+        memberService.updatePrivacy(customOAuth2User.getId(), memberPrivacyDto);
         return "fragments/index";
-    }
-
-    @GetMapping("login")
-    public String login() {
-        return "/fragments/member/login";
     }
 }

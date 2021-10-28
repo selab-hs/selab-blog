@@ -17,12 +17,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository.findByEmail(username)
-                .orElseThrow(() -> {
-                    throw new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER);
-                })
+                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER))
                 .toCustomUserDetails();
     }
 }
