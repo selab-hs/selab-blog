@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.member.presentation;
 
+import kr.ac.hs.selab.common.dto.AuthUser;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
@@ -24,38 +25,38 @@ public class MemberController {
         return "/fragments/member/login";
     }
 
-    @GetMapping("sign")
-    public String sign() {
-        return "/fragments/member/sign";
+    @GetMapping("signup/basic")
+    public String signupBasic() {
+        return "/fragments/member/signup-basic";
     }
 
-    @PostMapping("sign")
-    public String sign(@Valid MemberSignUpDto memberSignUpDto) {
+    @PostMapping("signup/basic")
+    public String signupBasic(@Valid MemberSignUpDto memberSignUpDto) {
         memberService.create(memberSignUpDto);
         return "redirect:/auth/login";
     }
 
     @GetMapping("signup/social")
-    public String signUpSocial() {
-        return "fragments/member/social-sign";
+    public String signupSocial() {
+        return "fragments/member/signup-social";
     }
 
     @PostMapping("signup/social")
-    public String signUpSocial(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+    public String signupSocial(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
                                @Valid MemberPrivacyDto memberPrivacyDto) {
         memberService.updateSocialInfo(customOAuth2User.getId(), memberPrivacyDto);
         return "fragments/index";
     }
 
-    @GetMapping("edit")
-    public String edit() {
-        return "fragments/member/edit";
+    @GetMapping("edit/privacy")
+    public String editPrivacy() {
+        return "fragments/member/edit-privacy";
     }
 
-    @PostMapping("edit")
-    public String edit(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-                       @Valid MemberPrivacyDto memberPrivacyDto) {
-        memberService.updatePrivacy(customOAuth2User.getId(), memberPrivacyDto);
+    @PostMapping("edit/privacy")
+    public String editPrivacy(@AuthenticationPrincipal AuthUser authUser,
+                              @Valid MemberPrivacyDto memberPrivacyDto) {
+        memberService.updatePrivacy(authUser.getId(), memberPrivacyDto);
         return "fragments/index";
     }
 }

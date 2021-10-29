@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.config;
 
-import kr.ac.hs.selab.oauth.application.OAuth2Interceptor;
+import kr.ac.hs.selab.oauth.interceptor.OAuth2Interceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

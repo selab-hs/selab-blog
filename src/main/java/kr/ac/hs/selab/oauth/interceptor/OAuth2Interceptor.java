@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.oauth.application;
+package kr.ac.hs.selab.oauth.interceptor;
 
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.OAuth2LoginException;
