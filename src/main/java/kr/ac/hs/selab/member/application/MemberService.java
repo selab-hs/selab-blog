@@ -1,7 +1,8 @@
 package kr.ac.hs.selab.member.application;
 
+import kr.ac.hs.selab.exception.BasicAuthLoginException;
 import kr.ac.hs.selab.exception.ErrorMessage;
-import kr.ac.hs.selab.exception.InvalidLoginException;
+import kr.ac.hs.selab.exception.OAuth2LoginException;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.member.dto.MemberSignUpDto;
@@ -25,7 +26,7 @@ public class MemberService {
     @Transactional
     public void updateSocialInfo(Long memberId, MemberPrivacyDto memberPrivacyDto) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER));
+                .orElseThrow(() -> new OAuth2LoginException(ErrorMessage.NON_EXISTENT_USER));
 
         validateDuplicateNickname(memberPrivacyDto.getNickname());
         validateDuplicatePhoneNumber(memberPrivacyDto.getPhoneNumber());
@@ -37,7 +38,7 @@ public class MemberService {
     @Transactional
     public void updatePrivacy(Long memberId, MemberPrivacyDto memberPrivacyDto) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER));
+                .orElseThrow(() -> new BasicAuthLoginException(ErrorMessage.NON_EXISTENT_USER));
 
         validateDuplicateNickname(memberPrivacyDto.getNickname());
         validateDuplicatePhoneNumber(memberPrivacyDto.getPhoneNumber());
@@ -47,19 +48,19 @@ public class MemberService {
 
     private void validatePrivacyEmpty(Member member) {
         if (!member.checkPrivacyEmpty()) {
-            throw new InvalidLoginException(ErrorMessage.EXISTENT_USER);
+            throw new BasicAuthLoginException(ErrorMessage.EXISTENT_USER);
         }
     }
 
     private void validateDuplicateNickname(String nickname) {
         if (memberRepository.existsByNickname(nickname)) {
-            throw new InvalidLoginException(ErrorMessage.EXISTENT_NICKNAME);
+            throw new BasicAuthLoginException(ErrorMessage.EXISTENT_NICKNAME);
         }
     }
 
     private void validateDuplicatePhoneNumber(String phoneNumber) {
         if (memberRepository.existsByPhoneNumber(phoneNumber)) {
-            throw new InvalidLoginException(ErrorMessage.EXISTENT_PHONE_NUMBER);
+            throw new BasicAuthLoginException(ErrorMessage.EXISTENT_PHONE_NUMBER);
         }
     }
 }

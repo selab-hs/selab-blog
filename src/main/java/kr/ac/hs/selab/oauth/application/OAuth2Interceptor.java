@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.oauth.application;
 
 import kr.ac.hs.selab.exception.ErrorMessage;
-import kr.ac.hs.selab.exception.InvalidLoginException;
+import kr.ac.hs.selab.exception.OAuth2LoginException;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +36,7 @@ public class OAuth2Interceptor implements HandlerInterceptor {
 
     private boolean isMemberPrivacyEmpty(HttpServletRequest request) {
         return memberRepository.findByEmail(request.getUserPrincipal().getName())
-                .orElseThrow(() -> new InvalidLoginException(ErrorMessage.NON_EXISTENT_USER_PRIVACY))
+                .orElseThrow(() -> new OAuth2LoginException(ErrorMessage.NON_EXISTENT_USER_PRIVACY))
                 .checkPrivacyEmpty();
     }
 }

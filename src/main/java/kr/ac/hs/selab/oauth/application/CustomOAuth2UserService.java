@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.oauth.application;
 
 import kr.ac.hs.selab.exception.ErrorMessage;
-import kr.ac.hs.selab.exception.InvalidLoginException;
+import kr.ac.hs.selab.exception.OAuth2LoginException;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
@@ -24,12 +24,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Override
     public OAuth2User loadUser(final OAuth2UserRequest userRequest)
             throws OAuth2AuthenticationException {
-        SocialAttributes socialAttributes = newSocialAttributes(userRequest);
-        Member member = findAndSaveSocialMember(socialAttributes);
-
-        if (!member.isSocial()) {
-            throw new InvalidLoginException(ErrorMessage.INVALID_SOCIAL_LOGIN);
-        }
+        Member member = findAndSaveSocialMember(newSocialAttributes(userRequest));
+        validateSocialType(member);
         return member.toCustomOAuth2User();
     }
 
@@ -45,5 +41,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         return SocialType.of(registrationId)
                 .toSocialAttributes(oAuth2User);
+    }
+
+    private void validateSocialType(Member member) {
+        if (!member.isSocial()) {
+            throw new OAuth2LoginException(ErrorMessage.NOT_SUPPORTED_SOCIAL_LOGIN);
+        }
     }
 }
