@@ -25,7 +25,6 @@ public class OAuth2Interceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object object,
                            ModelAndView modelAndView) throws IOException {
-        System.out.println(request.getRequestURL());
         if (!isNullPrincipal(request) && isMemberPrivacyEmpty(request)) {
             response.sendRedirect(SOCIAL_SIGN_UP_URL);
         }

@@ -7,6 +7,7 @@ import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignupDto;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
