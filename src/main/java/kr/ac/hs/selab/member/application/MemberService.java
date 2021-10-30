@@ -4,8 +4,9 @@ import kr.ac.hs.selab.exception.BasicAuthLoginException;
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.OAuth2LoginException;
 import kr.ac.hs.selab.member.domain.Member;
+import kr.ac.hs.selab.member.dto.MemberBasicSignupDto;
 import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
-import kr.ac.hs.selab.member.dto.MemberSignUpDto;
+import kr.ac.hs.selab.member.dto.MemberSocialSignupDto;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,20 +20,20 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void create(MemberSignUpDto memberSignUpDto) {
+    public void create(MemberBasicSignupDto memberSignUpDto) {
         memberRepository.save(memberSignUpDto.toMember(passwordEncoder));
     }
 
     @Transactional
-    public void updateSocialInfo(Long memberId, MemberPrivacyDto memberPrivacyDto) {
+    public void updateSocialInfo(Long memberId, MemberSocialSignupDto memberSocialSignupDto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new OAuth2LoginException(ErrorMessage.NON_EXISTENT_USER));
 
-        validateDuplicateNickname(memberPrivacyDto.getNickname());
-        validateDuplicatePhoneNumber(memberPrivacyDto.getPhoneNumber());
+        validateDuplicateNickname(memberSocialSignupDto.getNickname());
+        validateDuplicatePhoneNumber(memberSocialSignupDto.getPhoneNumber());
         validatePrivacyEmpty(member);
 
-        member.updatePrivacy(memberPrivacyDto);
+        member.updateSocial(memberSocialSignupDto);
     }
 
     @Transactional

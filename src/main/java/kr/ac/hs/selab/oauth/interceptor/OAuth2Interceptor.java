@@ -4,7 +4,7 @@ import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.OAuth2LoginException;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class OAuth2Interceptor implements HandlerInterceptor {
     private final MemberRepository memberRepository;
@@ -25,6 +25,7 @@ public class OAuth2Interceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object object,
                            ModelAndView modelAndView) throws IOException {
+        System.out.println(request.getRequestURL());
         if (!isNullPrincipal(request) && isMemberPrivacyEmpty(request)) {
             response.sendRedirect(SOCIAL_SIGN_UP_URL);
         }

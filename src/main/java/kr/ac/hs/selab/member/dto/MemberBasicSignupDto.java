@@ -14,7 +14,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class MemberSignUpDto {
+public class MemberBasicSignupDto {
     @NonNull
     @Email(regexp = MemberValidUtils.Regexp.EMAIL, message = MemberValidUtils.Message.EMAIL)
     private String email;
@@ -58,7 +58,7 @@ public class MemberSignUpDto {
     @AssertTrue
     private boolean termLocation;
 
-    protected MemberSignUpDto() {
+    protected MemberBasicSignupDto() {
     }
 
     public Member toMember(PasswordEncoder passwordEncoder) {
