@@ -2,12 +2,11 @@ package kr.ac.hs.selab.member.presentation;
 
 import kr.ac.hs.selab.common.dto.AuthUser;
 import kr.ac.hs.selab.member.application.MemberService;
-import kr.ac.hs.selab.member.dto.MemberBasicSignupDto;
-import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
-import kr.ac.hs.selab.member.dto.MemberSocialSignupDto;
+import kr.ac.hs.selab.member.dto.MemberBasicSignupRequest;
+import kr.ac.hs.selab.member.dto.MemberPrivacyRequest;
+import kr.ac.hs.selab.member.dto.MemberSocialSignupRequest;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +32,8 @@ public class MemberController {
     }
 
     @PostMapping("signup/basic")
-    public String signupBasic(@Valid MemberBasicSignupDto memberBasicSignupDto) {
-        memberService.create(memberBasicSignupDto);
+    public String signupBasic(@Valid MemberBasicSignupRequest request) {
+        memberService.create(request);
         return "redirect:/auth/login";
     }
 
@@ -44,9 +43,9 @@ public class MemberController {
     }
 
     @PostMapping("signup/social")
-    public String signupSocial(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-                               @Valid MemberSocialSignupDto memberSocialSignupDto) {
-        memberService.updateSocialInfo(customOAuth2User.getId(), memberSocialSignupDto);
+    public String signupSocial(@AuthenticationPrincipal CustomOAuth2User authUser,
+                               @Valid MemberSocialSignupRequest request) {
+        memberService.updateSocialInfo(authUser.getId(), request);
         return "fragments/index";
     }
 
@@ -57,8 +56,8 @@ public class MemberController {
 
     @PostMapping("edit/privacy")
     public String editPrivacy(@AuthenticationPrincipal AuthUser authUser,
-                              @Valid MemberPrivacyDto memberPrivacyDto) {
-        memberService.updatePrivacy(authUser.getId(), memberPrivacyDto);
+                              @Valid MemberPrivacyRequest request) {
+        memberService.updatePrivacy(authUser.getId(), request);
         return "fragments/index";
     }
 }

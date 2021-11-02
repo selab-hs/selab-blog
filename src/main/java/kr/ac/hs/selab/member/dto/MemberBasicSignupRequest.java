@@ -1,20 +1,16 @@
 package kr.ac.hs.selab.member.dto;
 
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.Gender;
-import kr.ac.hs.selab.member.domain.vo.Role;
-import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.utils.MemberValidUtils;
 import lombok.Data;
 import lombok.NonNull;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class MemberBasicSignupDto {
+public class MemberBasicSignupRequest {
     @NonNull
     @Email(regexp = MemberValidUtils.Regexp.EMAIL, message = MemberValidUtils.Message.EMAIL)
     private String email;
@@ -58,24 +54,6 @@ public class MemberBasicSignupDto {
     @AssertTrue
     private boolean termLocation;
 
-    protected MemberBasicSignupDto() {
-    }
-
-    public Member toMember(PasswordEncoder passwordEncoder) {
-        return Member.builder()
-                .email(email)
-                .name(name)
-                .password(passwordEncoder.encode(password))
-                .nickname(nickname)
-                .gender(gender)
-                .birth(birth)
-                .phoneNumber(phoneNumber)
-                .studentId(studentId)
-                .termService(termService)
-                .termPrivacy(termPrivacy)
-                .termLocation(termLocation)
-                .socialType(SocialType.BASIC)
-                .role(Role.USER)
-                .build();
+    protected MemberBasicSignupRequest() {
     }
 }
