@@ -8,7 +8,6 @@ import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.dto.MemberPrivacyRequest;
 import kr.ac.hs.selab.member.dto.MemberSocialSignupRequest;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
-import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import kr.ac.hs.selab.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
