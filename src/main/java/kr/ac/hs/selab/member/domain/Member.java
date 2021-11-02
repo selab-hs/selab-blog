@@ -8,11 +8,15 @@ import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.dto.MemberPrivacyRequest;
 import kr.ac.hs.selab.member.dto.MemberSocialSignupRequest;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
+import kr.ac.hs.selab.oauth.dto.SocialAttributes;
+import kr.ac.hs.selab.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 @AllArgsConstructor
 @Builder
@@ -65,6 +69,8 @@ public class Member extends Date {
     @Column(name = "member_term_location", nullable = false)
     private boolean termLocation;
 
+    @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new TreeSet<>();
     protected Member() {
     }
 
@@ -116,5 +122,9 @@ public class Member extends Date {
                 Objects.isNull(phoneNumber) ||
                 Objects.isNull(birth) ||
                 Objects.isNull(studentId);
+    }
+
+    public void addPost(Post post) {
+        posts.add(post);
     }
 }
