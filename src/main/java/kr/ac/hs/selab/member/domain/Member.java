@@ -5,8 +5,8 @@ import kr.ac.hs.selab.common.domain.Date;
 import kr.ac.hs.selab.member.domain.vo.Gender;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
-import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
-import kr.ac.hs.selab.member.dto.MemberSocialSignupDto;
+import kr.ac.hs.selab.member.dto.MemberPrivacyRequest;
+import kr.ac.hs.selab.member.dto.MemberSocialSignupRequest;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.oauth.dto.SocialAttributes;
 import kr.ac.hs.selab.post.domain.Post;
@@ -67,10 +67,15 @@ public class Member extends Date {
     @Column(name = "member_term_location", nullable = false)
     private boolean termLocation;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
 
+=======
+    @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new TreeSet<>();
+>>>>>>> f69e7fcba78cb7ad30684ba782035d8c768a5200
     protected Member() {
     }
 
@@ -93,36 +98,27 @@ public class Member extends Date {
                 .build();
     }
 
-    public static Member ofSocial(SocialAttributes socialAttributes) {
-        return Member.builder()
-                .name(socialAttributes.name())
-                .email(socialAttributes.email())
-                .socialType(socialAttributes.socialType())
-                .role(Role.USER)
-                .build();
-    }
-
     public boolean isSocial() {
         return socialType != SocialType.BASIC;
     }
 
-    public void updateSocial(MemberSocialSignupDto memberSocialSignupDto) {
-        this.gender = memberSocialSignupDto.getGender();
-        this.nickname = memberSocialSignupDto.getNickname();
-        this.phoneNumber = memberSocialSignupDto.getPhoneNumber();
-        this.birth = memberSocialSignupDto.getBirth();
-        this.studentId = memberSocialSignupDto.getStudentId();
-        this.termLocation = memberSocialSignupDto.isTermLocation();
-        this.termPrivacy = memberSocialSignupDto.isTermPrivacy();
-        this.termService = memberSocialSignupDto.isTermService();
+    public void updateSocial(MemberSocialSignupRequest request) {
+        this.gender = request.getGender();
+        this.nickname = request.getNickname();
+        this.phoneNumber = request.getPhoneNumber();
+        this.birth = request.getBirth();
+        this.studentId = request.getStudentId();
+        this.termLocation = request.isTermLocation();
+        this.termPrivacy = request.isTermPrivacy();
+        this.termService = request.isTermService();
     }
 
-    public void updatePrivacy(MemberPrivacyDto memberPrivacyDto) {
-        this.gender = memberPrivacyDto.getGender();
-        this.nickname = memberPrivacyDto.getNickname();
-        this.phoneNumber = memberPrivacyDto.getPhoneNumber();
-        this.birth = memberPrivacyDto.getBirth();
-        this.studentId = memberPrivacyDto.getStudentId();
+    public void updatePrivacy(MemberPrivacyRequest request) {
+        this.gender = request.getGender();
+        this.nickname = request.getNickname();
+        this.phoneNumber = request.getPhoneNumber();
+        this.birth = request.getBirth();
+        this.studentId = request.getStudentId();
     }
 
     public boolean checkPrivacyEmpty() {

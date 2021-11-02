@@ -5,11 +5,10 @@ import kr.ac.hs.selab.member.utils.MemberValidUtils;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class MemberSocialSignupDto {
+public class MemberPrivacyRequest {
     @NonNull
     @Pattern(regexp = MemberValidUtils.Regexp.NICKNAME, message = MemberValidUtils.Message.NICKNAME)
     private String nickname;
@@ -29,18 +28,6 @@ public class MemberSocialSignupDto {
     @Pattern(regexp = MemberValidUtils.Regexp.STUDENT_ID, message = MemberValidUtils.Message.STUDENT_ID)
     private String studentId;
 
-    @NonNull
-    @AssertTrue(message = MemberValidUtils.Message.TERM_SERVICE)
-    private boolean termService;
-
-    @NonNull
-    @AssertTrue(message = MemberValidUtils.Message.TERM_PRIVACY)
-    private boolean termPrivacy;
-
-    @NonNull
-    @AssertTrue(message = MemberValidUtils.Message.TERM_LOCATION)
-    private boolean termLocation;
-
-    protected MemberSocialSignupDto() {
+    protected MemberPrivacyRequest() {
     }
 }

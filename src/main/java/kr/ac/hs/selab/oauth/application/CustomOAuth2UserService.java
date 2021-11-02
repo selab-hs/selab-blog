@@ -2,6 +2,7 @@ package kr.ac.hs.selab.oauth.application;
 
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.OAuth2LoginException;
+import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.SocialType;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final MemberRepository memberRepository;
+    private final MemberConverter memberConverter;
 
     @Transactional
     @Override
@@ -32,7 +34,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Transactional
     public Member findAndSaveSocialMember(SocialAttributes socialAttributes) {
         return memberRepository.findByEmail(socialAttributes.email())
-                .orElseGet(() -> memberRepository.save(Member.ofSocial(socialAttributes)));
+                .orElseGet(() -> memberRepository.save(memberConverter.ofSocial(socialAttributes)));
     }
 
     private SocialAttributes newSocialAttributes(final OAuth2UserRequest userRequest) {
