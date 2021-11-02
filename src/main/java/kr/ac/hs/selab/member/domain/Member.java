@@ -14,9 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @AllArgsConstructor
 @Builder
@@ -68,6 +66,10 @@ public class Member extends Date {
 
     @Column(name = "member_term_location", nullable = false)
     private boolean termLocation;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
+
 
     protected Member() {
     }
@@ -131,11 +133,7 @@ public class Member extends Date {
                 Objects.isNull(studentId);
     }
 
-    @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Post> posts = new TreeSet<>();
-
     public void addPost(Post post) {
         posts.add(post);
     }
-
 }

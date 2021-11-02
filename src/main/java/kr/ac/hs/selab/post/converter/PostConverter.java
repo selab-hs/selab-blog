@@ -13,8 +13,8 @@ public class PostConverter {
         return Post.builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .postMember(member)
-                .postBoard(board)
+                .member(member)
+                .board(board)
                 .build();
     }
 

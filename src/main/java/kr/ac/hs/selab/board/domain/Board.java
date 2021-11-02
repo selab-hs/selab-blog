@@ -25,7 +25,7 @@ public class Board extends Date {
     @Column(name = "board_content")
     private String content;
 
-    @OneToMany(mappedBy = "postBoard", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
     protected Board() {

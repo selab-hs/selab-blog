@@ -21,16 +21,16 @@ public class Post extends Date {
     private String title;
 
     @Lob
-    @Column
+    @Column(name = "post_content")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_Id")
-    private Member postMember;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_Id")
-    private Board postBoard;
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     protected Post() {
     }

@@ -31,7 +31,7 @@ public class BoardController {
     }
 
     // 게시판 생성
-    @PostMapping("/insert")
+    @PostMapping("/create")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public String insert(@Valid BoardDto dto, Model model) {
         // 상단 Board 제목 출력 //
@@ -40,7 +40,7 @@ public class BoardController {
 
         // create 진행하기
         boardService.createBoard(dto);
-        return "redirect:/create";
+        return "redirect:/board/insert";
     }
 
     // 게시판 전체 조회

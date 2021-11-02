@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    Page<Post> findAllByPostBoard(Long id, Pageable pageable);
+    Page<Post> findAllByBoard(Long id, Pageable pageable);
 
-    Optional<Post> findByIdAndPostBoard(Long postId, Long boardId);
+    Optional<Post> findByIdAndBoard(Long postId, Long boardId);
 
-    void deleteByIdAndPostBoard(Long postId, Long boardId);
+    void deleteByIdAndBoard(Long postId, Long boardId);
 }
