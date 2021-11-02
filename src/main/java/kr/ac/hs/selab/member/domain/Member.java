@@ -9,11 +9,14 @@ import kr.ac.hs.selab.member.dto.MemberPrivacyDto;
 import kr.ac.hs.selab.member.dto.MemberSocialSignupDto;
 import kr.ac.hs.selab.oauth.dto.CustomOAuth2User;
 import kr.ac.hs.selab.oauth.dto.SocialAttributes;
+import kr.ac.hs.selab.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 @AllArgsConstructor
 @Builder
@@ -127,4 +130,12 @@ public class Member extends Date {
                 Objects.isNull(birth) ||
                 Objects.isNull(studentId);
     }
+
+    @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new TreeSet<>();
+
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+
 }

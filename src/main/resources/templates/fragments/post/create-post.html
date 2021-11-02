@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout/head :: head">
+</head>
+
+<body>
+<div th:replace="fragments/layout/header :: header(${boards})"></div>
+<div class="container">
+    <br/>
+    <br/>
+    <h3>게시물 만들기</h3>
+    <br/>
+    <br/>
+    <form role="form"
+          th:action="@{/post}"
+          th:object="${post}"
+          method="post"
+          class="was-validated">
+
+        <div class="form-group">
+            <label th:for="subTitle">게시글 제목 :</label>
+            <input type="text"
+                   th:field="*{subTitle}"
+                   placeholder="게시판을 입력하세요"
+                   class="form-control"
+                   required
+            />
+        </div>
+
+        <div class="form-group">
+            <label th:for="subContent">게시글 본문 :</label>
+            <textarea class="form-control" rows="10" th:field="*{subContent}"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">만들기</button>
+    </form>
+    <br/>
+</div>
+<div th:replace="fragments/layout/footer :: footer"></div>
+
+</body>
+</html>

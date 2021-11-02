@@ -5,13 +5,7 @@
 </head>
 
 <body>
-<div th:replace="fragments/layout/header :: header"></div>
-
-<!--
-<div th:replace="@{${content}} :: body"></div>
--->
-
+<div th:replace="fragments/layout/header :: header(${boards})"></div>
 <div th:replace="fragments/layout/footer :: footer"></div>
-
 </body>
 </html>
