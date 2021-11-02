@@ -67,15 +67,9 @@ public class Member extends Date {
     @Column(name = "member_term_location", nullable = false)
     private boolean termLocation;
 
-<<<<<<< HEAD
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
-
-=======
-    @OneToMany(mappedBy = "postMember", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Post> posts = new TreeSet<>();
->>>>>>> f69e7fcba78cb7ad30684ba782035d8c768a5200
     protected Member() {
     }
 
