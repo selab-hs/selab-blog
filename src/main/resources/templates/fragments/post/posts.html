@@ -10,7 +10,7 @@
     <br>
     <br>
     <div class="form-row float-right">
-        <a th:href="@{/post}" class="btn btn-success" th:text="글쓰기"></a>
+        <a th:href="@{'/board/'+${boardTitle} + '/post/insert'}" class="btn btn-success" th:text="글쓰기"></a>
     </div>
     <br>
     <br>

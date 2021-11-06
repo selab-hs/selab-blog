@@ -32,15 +32,15 @@ public class PostController {
     }
 
     // 삽입
-    @PostMapping("/board/{id}/post/insert")
-    public String insert(@AuthenticationPrincipal AuthUser authUser, Long id, Model model, PostDto postDto) {
+    @PostMapping("/board/{boardTitle}/post")
+    public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, Model model, PostDto postDto) {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        Long postId = postService.create(id, authUser.getId(), postDto);
+        Long postId = postService.create(boardTitle, authUser.getId(), postDto);
 
-        return "redirect:/board/" + id + "/post/" + postId;
+        return "redirect:/board/" + boardTitle + "/post/" + postId;
     }
 
     // 전체 조회
@@ -51,6 +51,7 @@ public class PostController {
         // Board 출력 //
 
         Page<PostDetailDto> all = postService.findAll(boardTitle, pageable);
+        model.addAttribute("boardTitle", boardTitle);
         model.addAttribute("posts", all);
         return "fragments/post/posts";
     }

@@ -28,12 +28,12 @@ public class PostService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long create(Long id, Long memberId, PostDto dto) {
+    public Long create(String title, Long memberId, PostDto dto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.NON_EXISTENT_USER));
 
-        Board board = boardService.findById(id);
-
+        Board board = boardRepository.findBoardByTitle(title)
+                .orElseThrow(() -> new RuntimeException("exception"));
         Post post = postConverter.toPost(dto, member, board);
         member.addPost(post);
         board.addPost(post);
