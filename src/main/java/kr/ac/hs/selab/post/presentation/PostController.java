@@ -2,7 +2,6 @@ package kr.ac.hs.selab.post.presentation;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.common.dto.AuthUser;
-import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.post.application.PostService;
 import kr.ac.hs.selab.post.dto.PostDetailDto;
 import kr.ac.hs.selab.post.dto.PostDto;
@@ -76,7 +75,7 @@ public class PostController {
         postService.delete(boardId, postId);
         return "redirect:/board/" + boardId + "/post";
     }
-    
+
     @PatchMapping("/board/{boardId}/post/{postId}")
     public String edit(@PathVariable Long boardId, @PathVariable Long postId, Model model, PostDto dto) {
         // Board 출력 //
