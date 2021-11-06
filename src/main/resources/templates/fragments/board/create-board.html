@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout/head :: head">
+</head>
+
+<body>
+<div th:replace="fragments/layout/header :: header(${boards})"></div>
+
+<div class="container">
+    <br/>
+    <br/>
+    <h3>게시판 만들기</h3>
+    <br/>
+    <br/>
+    <form role="form"
+          th:action="@{/board/create}"
+          th:object="${createBoardDto}"
+          method="post"
+          class="was-validated">
+
+        <div class="form-group">
+            <label th:for="title">게시판 명 :</label>
+            <input type="text"
+                   th:field="*{title}"
+                   placeholder="게시판을 입력하세요"
+                   class="form-control"
+                   required
+            />
+        </div>
+
+        <div class="form-group">
+            <label th:for="content">소개 :</label>
+            <textarea class="form-control" rows="10" th:field="*{content}"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">만들기</button>
+    </form>
+    <br/>
+</div>
+<div th:replace="fragments/layout/footer :: footer"></div>
+
+</body>
+</html>
