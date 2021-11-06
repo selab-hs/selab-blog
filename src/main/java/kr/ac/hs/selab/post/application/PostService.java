@@ -2,6 +2,7 @@ package kr.ac.hs.selab.post.application;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.board.domain.Board;
+import kr.ac.hs.selab.board.infrastructure.BoardRepository;
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.NonExitsException;
 import kr.ac.hs.selab.member.domain.Member;
@@ -24,6 +25,7 @@ public class PostService {
     private final BoardService boardService;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
     @Transactional
     public Long create(Long id, Long memberId, PostDto dto) {
@@ -39,8 +41,10 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDetailDto> findAll(Long id, Pageable pageable) {
-        return postRepository.findAllByBoard(id, pageable)
+    public Page<PostDetailDto> findAll(String boardTitle, Pageable pageable) {
+        Board board = boardRepository.findBoardByTitle(boardTitle)
+                .orElseThrow(() -> new RuntimeException("exception"));
+        return postRepository.findAllByBoard(board, pageable)
                 .map(postConverter::toPostDetailDto);
     }
 

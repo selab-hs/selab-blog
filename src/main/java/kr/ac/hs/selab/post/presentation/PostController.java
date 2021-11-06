@@ -44,13 +44,13 @@ public class PostController {
     }
 
     // 전체 조회
-    @GetMapping("/board/{id}/post")
-    public String inquire(@PathVariable Long id, Pageable pageable, Model model) {
+    @GetMapping("/board/{boardTitle}/post")
+    public String inquire(@PathVariable String boardTitle, Pageable pageable, Model model) {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        Page<PostDetailDto> all = postService.findAll(id, pageable);
+        Page<PostDetailDto> all = postService.findAll(boardTitle, pageable);
         model.addAttribute("posts", all);
         return "fragments/post/posts";
     }
