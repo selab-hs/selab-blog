@@ -22,7 +22,7 @@ public class PostController {
     private final PostService postService;
     private final BoardService boardService;
 
-    // 삽입
+    // 삽입페이지 조회
     @GetMapping("/board/{boardTitle}/post/insert")
     public String insert(@PathVariable String boardTitle, Model model) {
         // Board 출력 //
@@ -34,18 +34,15 @@ public class PostController {
         return "fragments/post/create-post";
     }
 
-    // 삽입
+    // 삽입 진행
     @PostMapping(value = "/board/{boardTitle}/post/insert")
-    public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, Model model, PostDto postDto)  throws UnsupportedEncodingException {
+    public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, Model model, PostDto postDto) throws UnsupportedEncodingException {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
         postService.create(boardTitle, authUser.getId(), postDto);
 
-        System.out.println("--------------------");
-        System.out.println(boardTitle);
-        System.out.println("--------------------");
         String path = URLEncoder.encode(boardTitle, "UTF-8");
         return "redirect:/board/" + path + "/post";
     }
@@ -63,13 +60,14 @@ public class PostController {
         return "fragments/post/posts";
     }
 
-    @GetMapping("/board/{boardId}/post/{postId}")
-    public String inquire(@PathVariable Long boardId, @PathVariable Long postId, Model model) {
+    // 상세조회
+    @GetMapping("/board/{boardTitle}/post/{postId}")
+    public String inquire(@PathVariable String boardTitle, @PathVariable Long postId, Model model) {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        PostDetailDto post = postService.findByBoardIdWithPostId(boardId, postId);
+        PostDetailDto post = postService.find(boardTitle, postId);
         model.addAttribute("post", post);
         return "fragments/post/post-detail";
     }
@@ -84,13 +82,13 @@ public class PostController {
         return "redirect:/board/" + boardId + "/post";
     }
 
-    @PatchMapping("/board/{boardId}/post/{postId}")
-    public String edit(@PathVariable Long boardId, @PathVariable Long postId, Model model, PostDto dto) {
+    @PatchMapping("/board/{boardTitle}/post/{postId}")
+    public String edit(@PathVariable String boardTitle, @PathVariable Long postId, Model model, PostDto dto) {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        postService.update(boardId, postId, dto);
-        return "redirect:/board/" + boardId + "/post/" + postId;
+        postService.update(boardTitle, postId, dto);
+        return "redirect:/board/" + boardTitle + "/post/" + postId;
     }
 }

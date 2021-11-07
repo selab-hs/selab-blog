@@ -49,8 +49,10 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostDetailDto findByBoardIdWithPostId(Long boardId, Long postId) {
-        Post post = postRepository.findByIdAndBoard(postId, boardId)
+    public PostDetailDto find(String boardTitle, Long postId) {
+        Board board = boardRepository.findBoardByTitle(boardTitle)
+                .orElseThrow(() -> new RuntimeException("exception"));
+        Post post = postRepository.findByIdAndBoard(postId, board)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_POST));
         return postConverter.toPostDetailDto(post);
     }
@@ -61,8 +63,10 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long boardId, Long postId, PostDto dto) {
-        Post post = postRepository.findByIdAndBoard(postId, boardId)
+    public void update(String boardTitle, Long postId, PostDto dto) {
+        Board board = boardRepository.findBoardByTitle(boardTitle)
+                .orElseThrow(() -> new RuntimeException("exception"));
+        Post post = postRepository.findByIdAndBoard(postId, board)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_POST));
         post.update(dto.getTitle(), dto.getContent());
     }

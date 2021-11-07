@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findAllByBoard(Board board, Pageable pageable);
 
-    Optional<Post> findByIdAndBoard(Long postId, Long boardId);
+    Optional<Post> findByIdAndBoard(Long postId, Board board);
 
     void deleteByIdAndBoard(Long postId, Long boardId);
 }
