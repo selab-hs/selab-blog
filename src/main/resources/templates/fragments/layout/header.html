@@ -25,12 +25,12 @@
                     <a class="nav-link" th:href="@{/auth/edit/privacy}">Edit</a>
                 </li>
                 <!-- Security 관련해서 조금 이상한 것 같습니다!-->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/board/insert}">Board</a>
                 </li>
                 <li class="nav-item" th:each="board: ${boards}">
                     <a class="nav-link" th:text="${board.getTitle()}"
-                       th:href="@{'/posts'(title=${board.getTitle()})}"></a>
+                       th:href="@{'/board/' + ${board.getTitle()} + '/post'}"></a>
                 </li>
             </ul>
         </div>

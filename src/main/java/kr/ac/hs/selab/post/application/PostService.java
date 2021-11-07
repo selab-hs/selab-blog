@@ -2,6 +2,7 @@ package kr.ac.hs.selab.post.application;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.board.domain.Board;
+import kr.ac.hs.selab.board.infrastructure.BoardRepository;
 import kr.ac.hs.selab.exception.ErrorMessage;
 import kr.ac.hs.selab.exception.NonExitsException;
 import kr.ac.hs.selab.member.domain.Member;
@@ -24,14 +25,15 @@ public class PostService {
     private final BoardService boardService;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
     @Transactional
-    public Long create(Long id, Long memberId, PostDto dto) {
+    public Long create(String title, Long memberId, PostDto dto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.NON_EXISTENT_USER));
 
-        Board board = boardService.findById(id);
-
+        Board board = boardRepository.findBoardByTitle(title)
+                .orElseThrow(() -> new RuntimeException("exception"));
         Post post = postConverter.toPost(dto, member, board);
         member.addPost(post);
         board.addPost(post);
@@ -39,14 +41,18 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDetailDto> findAll(Long id, Pageable pageable) {
-        return postRepository.findAllByBoard(id, pageable)
+    public Page<PostDetailDto> findAll(String boardTitle, Pageable pageable) {
+        Board board = boardRepository.findBoardByTitle(boardTitle)
+                .orElseThrow(() -> new RuntimeException("exception"));
+        return postRepository.findAllByBoard(board, pageable)
                 .map(postConverter::toPostDetailDto);
     }
 
     @Transactional(readOnly = true)
-    public PostDetailDto findByBoardIdWithPostId(Long boardId, Long postId) {
-        Post post = postRepository.findByIdAndBoard(postId, boardId)
+    public PostDetailDto find(String boardTitle, Long postId) {
+        Board board = boardRepository.findBoardByTitle(boardTitle)
+                .orElseThrow(() -> new RuntimeException("exception"));
+        Post post = postRepository.findByIdAndBoard(postId, board)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_POST));
         return postConverter.toPostDetailDto(post);
     }
@@ -57,8 +63,10 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long boardId, Long postId, PostDto dto) {
-        Post post = postRepository.findByIdAndBoard(postId, boardId)
+    public void update(String boardTitle, Long postId, PostDto dto) {
+        Board board = boardRepository.findBoardByTitle(boardTitle)
+                .orElseThrow(() -> new RuntimeException("exception"));
+        Post post = postRepository.findByIdAndBoard(postId, board)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_POST));
         post.update(dto.getTitle(), dto.getContent());
     }
