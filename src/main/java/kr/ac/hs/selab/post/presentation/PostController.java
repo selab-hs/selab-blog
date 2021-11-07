@@ -20,19 +20,19 @@ public class PostController {
     private final BoardService boardService;
 
     // 삽입
-    @GetMapping("/board/{id}/post/insert")
-    public String insert(@PathVariable Long id, Model model) {
+    @GetMapping("/board/{boardTitle}/post/insert")
+    public String insert(@PathVariable String boardTitle, Model model) {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        model.addAttribute("boardId", id);
+        model.addAttribute("boardTitle", boardTitle);
         model.addAttribute("post", new PostDto());
         return "fragments/post/create-post";
     }
 
     // 삽입
-    @PostMapping("/board/{boardTitle}/post")
+    @PostMapping("/board/{boardTitle}/post/insert")
     public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, Model model, PostDto postDto) {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
@@ -40,7 +40,7 @@ public class PostController {
 
         Long postId = postService.create(boardTitle, authUser.getId(), postDto);
 
-        return "redirect:/board/" + boardTitle + "/post/" + postId;
+        return "redirect:/board/" + boardTitle + "/post/insert";
     }
 
     // 전체 조회
@@ -50,9 +50,9 @@ public class PostController {
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        Page<PostDetailDto> all = postService.findAll(boardTitle, pageable);
+        Page<PostDetailDto> posts = postService.findAll(boardTitle, pageable);
         model.addAttribute("boardTitle", boardTitle);
-        model.addAttribute("posts", all);
+        model.addAttribute("posts", posts);
         return "fragments/post/posts";
     }
 
