@@ -2,6 +2,7 @@ package kr.ac.hs.selab.post.presentation;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.common.dto.AuthUser;
+
 import kr.ac.hs.selab.post.application.PostService;
 import kr.ac.hs.selab.post.dto.PostDetailDto;
 import kr.ac.hs.selab.post.dto.PostDto;
@@ -25,11 +26,13 @@ public class PostController {
     // 삽입페이지 조회
     @GetMapping("/board/{boardTitle}/post/insert")
     public String insert(@PathVariable String boardTitle, Model model) {
+
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
         model.addAttribute("boardTitle", boardTitle);
+
         model.addAttribute("post", new PostDto());
         return "fragments/post/create-post";
     }
