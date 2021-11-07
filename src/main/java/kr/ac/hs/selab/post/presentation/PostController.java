@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 @Controller
 @RequiredArgsConstructor
 public class PostController {
@@ -32,15 +35,19 @@ public class PostController {
     }
 
     // 삽입
-    @PostMapping("/board/{boardTitle}/post/insert")
-    public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, Model model, PostDto postDto) {
+    @PostMapping(value = "/board/{boardTitle}/post/insert")
+    public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, Model model, PostDto postDto)  throws UnsupportedEncodingException {
         // Board 출력 //
         model.addAttribute("boards", boardService.findAll());
         // Board 출력 //
 
-        Long postId = postService.create(boardTitle, authUser.getId(), postDto);
+        postService.create(boardTitle, authUser.getId(), postDto);
 
-        return "redirect:/board/" + boardTitle + "/post/insert";
+        System.out.println("--------------------");
+        System.out.println(boardTitle);
+        System.out.println("--------------------");
+        String path = URLEncoder.encode(boardTitle, "UTF-8");
+        return "redirect:/board/" + path + "/post";
     }
 
     // 전체 조회
