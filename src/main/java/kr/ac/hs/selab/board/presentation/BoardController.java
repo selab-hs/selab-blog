@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.board.presentation;
 
 import kr.ac.hs.selab.board.application.BoardService;
+import kr.ac.hs.selab.board.dto.BoardDetailDto;
 import kr.ac.hs.selab.board.dto.BoardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,21 +31,23 @@ public class BoardController {
         return "redirect:/board/insert";
     }
 
+    // 게시판 조회
     @GetMapping("/inquire")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String inquire() {
         return "/fragments/board/boards";
     }
 
-    @GetMapping("/inquire/{id}")
+    @GetMapping("/inquire/{boardTitle}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String edit(@PathVariable Long id, Model model) {
-        model.addAttribute("boardDetail", boardService.inquire(id));
+    public String edit(@PathVariable String boardTitle, Model model) {
+        final BoardDetailDto inquire = boardService.inquire(boardTitle);
+        model.addAttribute("boardDetail", inquire);
         return "/fragments/board/board-detail";
     }
 
-    @PatchMapping("/update/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public String edit(@PathVariable Long id, BoardDto dto) {
         boardService.update(id, dto);
         return "redirect:/inquire/" + id;

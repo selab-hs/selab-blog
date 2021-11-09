@@ -52,8 +52,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public BoardDetailDto inquire(Long id) {
-        Board board = boardRepository.findById(id)
+    public BoardDetailDto inquire(String title) {
+        Board board = boardRepository.findBoardByTitle(title)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_BOARD));
         return boardConverter.toBoardDetailDto(board);
     }
