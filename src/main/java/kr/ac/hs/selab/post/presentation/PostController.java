@@ -24,13 +24,13 @@ public class PostController {
     @GetMapping("/board/{boardTitle}/post/insert")
     public String insert(@PathVariable String boardTitle, Model model) {
         model.addAttribute("boardTitle", boardTitle);
-
         model.addAttribute("post", new PostDto());
         return "fragments/post/create-post";
     }
 
     @PostMapping(value = "/board/{boardTitle}/post/insert")
     public String insert(@PathVariable String boardTitle, @AuthenticationPrincipal AuthUser authUser, PostDto postDto) throws UnsupportedEncodingException {
+
         postService.create(boardTitle, authUser.getId(), postDto);
 
         String path = URLEncoder.encode(boardTitle, "UTF-8");
