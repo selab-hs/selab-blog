@@ -1,9 +1,9 @@
 package kr.ac.hs.selab.board.presentation;
 
 import kr.ac.hs.selab.board.application.BoardService;
+import kr.ac.hs.selab.board.dto.BoardDetailDto;
 import kr.ac.hs.selab.board.dto.BoardDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,77 +17,45 @@ import javax.validation.Valid;
 public class BoardController {
     private final BoardService boardService;
 
-    // 게시판 생성
     @GetMapping("/insert")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String insert(Model model) {
-        // 상단 Board 제목 출력 //
-        model.addAttribute("boards", boardService.findAll());
-        // 상단 Board 제목 출력 //
-
-        // dto 던지기
         model.addAttribute("createBoardDto", new BoardDto());
         return "/fragments/board/create-board";
     }
 
-    // 게시판 생성
     @PostMapping("/create")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String insert(@Valid BoardDto dto, Model model) {
-        // 상단 Board 제목 출력 //
-        model.addAttribute("boards", boardService.findAll());
-        // 상단 Board 제목 출력 //
-
-        // create 진행하기
+    public String insert(@Valid BoardDto dto) {
         boardService.createBoard(dto);
         return "redirect:/board/insert";
     }
 
-    // 게시판 전체 조회
+    // 게시판 조회
     @GetMapping("/inquire")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String inquire(Pageable pageable, Model model) {
-        // 상단 Board 제목 출력 //
-        model.addAttribute("boards", boardService.findAll());
-        // 상단 Board 제목 출력 //
-
-        // Board 전체 출력
-        model.addAttribute("boards", boardService.findAll());
+    public String inquire() {
         return "/fragments/board/boards";
     }
 
-    // 게시판 상세 보기
-    @GetMapping("/inquire/{id}")
+    @GetMapping("/inquire/{boardTitle}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String edit(@PathVariable Long id, Model model) {
-        // Board 출력 //
-        model.addAttribute("boards", boardService.findAll());
-        // Board 출력 //
-
-        model.addAttribute("boardDetail", boardService.inquire(id));
+    public String edit(@PathVariable String boardTitle, Model model) {
+        final BoardDetailDto inquire = boardService.inquire(boardTitle);
+        model.addAttribute("boardDetail", inquire);
         return "/fragments/board/board-detail";
     }
 
-    // 게시판 수정하기
-    @PatchMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String edit(@PathVariable Long id, Model model, BoardDto dto) {
-        // Board 출력 //
-        model.addAttribute("boards", boardService.findAll());
-        // Board 출력 //
-
+    public String edit(@PathVariable Long id, BoardDto dto) {
         boardService.update(id, dto);
         return "redirect:/inquire/" + id;
     }
 
-    // 게시판 삭제하기
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String delete(@PathVariable Long id, Model model) {
-        // Board 출력 //
-        model.addAttribute("boards", boardService.findAll());
-        // Board 출력 //
-
+    public String delete(@PathVariable Long id) {
         boardService.deleteById(id);
         return "redirect:/inquire";
     }

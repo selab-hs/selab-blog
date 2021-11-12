@@ -23,7 +23,6 @@ public class BoardService {
     private final BoardConverter boardConverter;
     private final BoardRepository boardRepository;
 
-    // 전체 조회 <-- 상단 헤더에 게시판 보이기 위해서
     @Transactional(readOnly = true)
     public List<BoardDto> findAll() {
         return boardRepository.findAll()
@@ -32,7 +31,6 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    // 게시판 생성하기
     @Transactional
     public void createBoard(BoardDto dto) {
         if (isCorrectRange()) {
@@ -45,20 +43,17 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    // 게시판 생성 범위
     private boolean isCorrectRange() {
         return MAX_BOARD_COUNT < boardRepository.count();
     }
 
-    // 게시판을 생성하는데, 이미 있는 제목이면 제한 걸기
     private boolean existsByTitle(String title) {
         return boardRepository.existsByTitle(title);
     }
 
-    // 게시판 상세보기
     @Transactional(readOnly = true)
-    public BoardDetailDto inquire(Long id) {
-        Board board = boardRepository.findById(id)
+    public BoardDetailDto inquire(String title) {
+        Board board = boardRepository.findBoardByTitle(title)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.IS_NOT_EXITS_BOARD));
         return boardConverter.toBoardDetailDto(board);
     }

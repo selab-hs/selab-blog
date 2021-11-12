@@ -13,11 +13,9 @@
         <div class="card-body">
             <div>
                 <h4 class="card-title" th:text="${board.getTitle()}"></h4>
-                <h6>👁 조회수</h6>
-                <h6>😍 좋아요</h6>
                 <h4 class="card-text" th:text="${board.getContent()}"></h4>
             </div>
-            <a href="#" class="btn btn-info">상세보기</a>
+            <a th:href="@{'/board/inquire/' + ${board.getTitle()}}" class="btn btn-info">상세보기</a>
         </div>
     </div>
 </div>

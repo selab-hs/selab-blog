@@ -7,10 +7,7 @@ import lombok.NonNull;
 @Data
 @Builder
 public class BoardDetailDto {
-    @NonNull
     private Long id;
-    @NonNull
     private String title;
-    @NonNull
     private String content;
 }
